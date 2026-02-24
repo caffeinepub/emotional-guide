@@ -3,6 +3,7 @@ import ConversationInput from '../components/ConversationInput';
 import ConversationHistory from '../components/ConversationHistory';
 import GuestPromptBanner from '../components/GuestPromptBanner';
 import MusicControl from '../components/MusicControl';
+import ChatBottomTabs from '../components/ChatBottomTabs';
 import { useGetAllCheckInsWithResponses } from '../hooks/useCheckIns';
 import { useBackgroundMusic } from '../hooks/useBackgroundMusic';
 import { Loader2 } from 'lucide-react';
@@ -10,13 +11,16 @@ import { Loader2 } from 'lucide-react';
 interface ChatPageProps {
   isGuest: boolean;
   onLogin: () => void;
+  onNavigateToJournal: () => void;
+  onNavigateToMusic: () => void;
+  onNavigateToMeditation: () => void;
 }
 
-export default function ChatPage({ isGuest, onLogin }: ChatPageProps) {
+export default function ChatPage({ isGuest, onLogin, onNavigateToJournal, onNavigateToMusic, onNavigateToMeditation }: ChatPageProps) {
   const { data: checkInsWithResponses, isLoading, error } = useGetAllCheckInsWithResponses(isGuest);
   const [refreshKey, setRefreshKey] = useState(0);
   const bottomRef = useRef<HTMLDivElement>(null);
-  
+
   // Background music hook
   const { isPlaying, isMuted, togglePlay, toggleMute } = useBackgroundMusic(
     '/assets/background-music.mp3',
@@ -24,7 +28,6 @@ export default function ChatPage({ isGuest, onLogin }: ChatPageProps) {
   );
 
   const handleNewCheckIn = () => {
-    console.log('[ChatPage] New check-in added, triggering refresh');
     setRefreshKey(prev => prev + 1);
   };
 
@@ -32,40 +35,13 @@ export default function ChatPage({ isGuest, onLogin }: ChatPageProps) {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [checkInsWithResponses]);
 
-  // Log errors for debugging
   useEffect(() => {
     if (error) {
       console.error('[ChatPage] Error loading check-ins:', error);
-      if (error instanceof Error) {
-        console.error('[ChatPage] Error message:', error.message);
-        console.error('[ChatPage] Error stack:', error.stack);
-      }
     }
   }, [error]);
 
-  // Log data state changes
-  useEffect(() => {
-    console.log('[ChatPage] Data state changed:', {
-      isGuest,
-      isLoading,
-      hasError: !!error,
-      dataCount: checkInsWithResponses?.length || 0,
-      refreshKey
-    });
-    
-    if (checkInsWithResponses && checkInsWithResponses.length > 0) {
-      console.log('[ChatPage] Check-ins data:', checkInsWithResponses.map((item, idx) => ({
-        index: idx,
-        timestamp: item.checkIn.timestamp,
-        feelings: item.checkIn.feelings,
-        hasResponse: !!item.response,
-        responseMainMessage: item.response?.mainMessage?.substring(0, 30) + '...'
-      })));
-    }
-  }, [isGuest, isLoading, error, checkInsWithResponses, refreshKey]);
-
   if (isLoading) {
-    console.log('[ChatPage] Showing loading state');
     return (
       <div className="relative min-h-screen">
         <div className="ana-room-background" />
@@ -77,7 +53,6 @@ export default function ChatPage({ isGuest, onLogin }: ChatPageProps) {
   }
 
   if (error) {
-    console.error('[ChatPage] Showing error state');
     return (
       <div className="relative min-h-screen">
         <div className="ana-room-background" />
@@ -91,18 +66,16 @@ export default function ChatPage({ isGuest, onLogin }: ChatPageProps) {
     );
   }
 
-  console.log('[ChatPage] Rendering chat interface with', checkInsWithResponses?.length || 0, 'check-ins');
-
   return (
     <div className="relative min-h-screen flex">
       {/* Background room with Ana - visible on left side */}
       <div className="ana-room-background-split" />
-      
+
       {/* Chat interface positioned on the right */}
       <div className="chat-container">
-        <div className="relative z-10 w-full px-4 py-8">
+        <div className="relative z-10 w-full px-4 py-8 pb-0">
           {isGuest && <GuestPromptBanner onLogin={onLogin} />}
-          
+
           <div className="mb-8 bg-background/80 backdrop-blur-md p-6 rounded-2xl border border-border/50 shadow-warm-lg">
             <h1 className="text-3xl font-bold mb-2 text-foreground">How are you feeling today?</h1>
             <p className="text-muted-foreground">
@@ -115,8 +88,19 @@ export default function ChatPage({ isGuest, onLogin }: ChatPageProps) {
             <div ref={bottomRef} />
           </div>
 
-          <div className="sticky bottom-0 bg-background/95 backdrop-blur-md py-4 border-t border-border/50 rounded-t-2xl shadow-warm-xl">
-            <ConversationInput onCheckInAdded={handleNewCheckIn} isGuest={isGuest} />
+          {/* Input + bottom tabs wrapped together */}
+          <div className="sticky bottom-0 rounded-t-2xl overflow-hidden shadow-warm-xl">
+            {/* Input area */}
+            <div className="bg-background/95 backdrop-blur-md px-4 pt-4 pb-3 border-t border-border/50">
+              <ConversationInput onCheckInAdded={handleNewCheckIn} isGuest={isGuest} />
+            </div>
+
+            {/* Bottom tabs */}
+            <ChatBottomTabs
+              onJournalClick={onNavigateToJournal}
+              onMusicClick={onNavigateToMusic}
+              onMeditationClick={onNavigateToMeditation}
+            />
           </div>
         </div>
       </div>

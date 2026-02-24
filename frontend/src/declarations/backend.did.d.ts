@@ -28,6 +28,13 @@ export interface FollowUpPrompt {
   'message' : string,
   'options' : Array<string>,
 }
+export interface JournalEntry {
+  'methodType' : string,
+  'content' : string,
+  'userId' : Principal,
+  'moodTag' : [] | [string],
+  'timestamp' : Time,
+}
 export interface SupportiveResponse {
   'followUpQuestion' : string,
   'mainMessage' : string,
@@ -45,15 +52,18 @@ export interface _SERVICE {
   'addEmpatheticStory' : ActorMethod<[EmpatheticStory], undefined>,
   'addFollowUpPrompt' : ActorMethod<[FollowUpPrompt], undefined>,
   'assignCallerUserRole' : ActorMethod<[Principal, UserRole], undefined>,
+  'clearJournalEntries' : ActorMethod<[], undefined>,
   'getAllCheckIns' : ActorMethod<[], Array<EmotionalCheckIn>>,
   'getCallerUserProfile' : ActorMethod<[], [] | [UserProfile]>,
   'getCallerUserRole' : ActorMethod<[], UserRole>,
+  'getJournalEntries' : ActorMethod<[], Array<JournalEntry>>,
   'getRandomFollowUpPrompt' : ActorMethod<[], [] | [FollowUpPrompt]>,
   'getUserCheckIns' : ActorMethod<[Principal], Array<EmotionalCheckIn>>,
   'getUserProfile' : ActorMethod<[Principal], [] | [UserProfile]>,
   'hasCheckIns' : ActorMethod<[Principal], boolean>,
   'isCallerAdmin' : ActorMethod<[], boolean>,
   'saveCallerUserProfile' : ActorMethod<[UserProfile], undefined>,
+  'saveJournalEntry' : ActorMethod<[string, string, [] | [string]], undefined>,
 }
 export declare const idlService: IDL.ServiceClass;
 export declare const idlInitArgs: IDL.Type[];

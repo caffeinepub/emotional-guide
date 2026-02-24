@@ -10,6 +10,8 @@ import MixinAuthorization "authorization/MixinAuthorization";
 import Int "mo:core/Int";
 import Nat "mo:core/Nat";
 
+
+
 actor {
   type UserProfile = {
     name : Text;
@@ -39,6 +41,14 @@ actor {
     followUpQuestion : Text;
   };
 
+  type JournalEntry = {
+    userId : Principal;
+    methodType : Text;
+    content : Text;
+    timestamp : Time.Time;
+    moodTag : ?Text;
+  };
+
   type CheckInWithResponse = {
     checkIn : EmotionalCheckIn;
     response : SupportiveResponse;
@@ -51,6 +61,7 @@ actor {
   let userCheckIns = Map.empty<Principal, List.List<EmotionalCheckIn>>();
   let empatheticStories = Map.empty<Text, EmpatheticStory>();
   let followUpPrompts = List.empty<FollowUpPrompt>();
+  let userJournalEntries = Map.empty<Principal, List.List<JournalEntry>>();
 
   public query ({ caller }) func getCallerUserProfile() : async ?UserProfile {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
@@ -73,12 +84,10 @@ actor {
     userProfiles.add(caller, profile);
   };
 
-  // Query to check if a user has any check-ins
   public query ({ caller }) func hasCheckIns(user : Principal) : async Bool {
     userCheckIns.containsKey(user);
   };
 
-  // Query to get all check-ins for a specific user
   public query ({ caller }) func getUserCheckIns(user : Principal) : async [EmotionalCheckIn] {
     switch (userCheckIns.get(user)) {
       case (?checkIns) { checkIns.toArray() };
@@ -86,7 +95,6 @@ actor {
     };
   };
 
-  // Updated addCheckIn to return CheckInWithResponse
   public shared ({ caller }) func addCheckIn(feelings : Text, content : Text) : async CheckInWithResponse {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can add check-ins");
@@ -191,5 +199,54 @@ actor {
     let promptSize = promptArray.size();
     let pseudoRandomIndex = Int.abs(Time.now() % 2147483647) % promptSize;
     ?promptArray[pseudoRandomIndex];
+  };
+
+  public shared ({ caller }) func saveJournalEntry(methodType : Text, content : Text, moodTag : ?Text) : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can save journal entries");
+    };
+
+    let newEntry : JournalEntry = {
+      userId = caller;
+      methodType;
+      content;
+      timestamp = Time.now();
+      moodTag;
+    };
+
+    let existingEntries = switch (userJournalEntries.get(caller)) {
+      case (?entries) { entries };
+      case (null) { List.empty<JournalEntry>() };
+    };
+
+    existingEntries.add(newEntry);
+    userJournalEntries.add(caller, existingEntries);
+  };
+
+  public query ({ caller }) func getJournalEntries() : async [JournalEntry] {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can view journal entries");
+    };
+
+    switch (userJournalEntries.get(caller)) {
+      case (?entries) {
+        let sortedEntries = entries.toArray().sort(
+          func(a, b) {
+            if (a.timestamp < b.timestamp) { return #less };
+            if (a.timestamp > b.timestamp) { return #greater };
+            #equal;
+          }
+        );
+        sortedEntries;
+      };
+      case (null) { [] };
+    };
+  };
+
+  public shared ({ caller }) func clearJournalEntries() : async () {
+    if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
+      Runtime.trap("Unauthorized: Only users can clear journal entries");
+    };
+    userJournalEntries.remove(caller);
   };
 };

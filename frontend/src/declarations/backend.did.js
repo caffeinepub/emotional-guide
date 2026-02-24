@@ -39,6 +39,13 @@ export const UserRole = IDL.Variant({
   'guest' : IDL.Null,
 });
 export const UserProfile = IDL.Record({ 'name' : IDL.Text });
+export const JournalEntry = IDL.Record({
+  'methodType' : IDL.Text,
+  'content' : IDL.Text,
+  'userId' : IDL.Principal,
+  'moodTag' : IDL.Opt(IDL.Text),
+  'timestamp' : Time,
+});
 
 export const idlService = IDL.Service({
   '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -46,9 +53,11 @@ export const idlService = IDL.Service({
   'addEmpatheticStory' : IDL.Func([EmpatheticStory], [], []),
   'addFollowUpPrompt' : IDL.Func([FollowUpPrompt], [], []),
   'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+  'clearJournalEntries' : IDL.Func([], [], []),
   'getAllCheckIns' : IDL.Func([], [IDL.Vec(EmotionalCheckIn)], ['query']),
   'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
   'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+  'getJournalEntries' : IDL.Func([], [IDL.Vec(JournalEntry)], ['query']),
   'getRandomFollowUpPrompt' : IDL.Func(
       [],
       [IDL.Opt(FollowUpPrompt)],
@@ -67,6 +76,11 @@ export const idlService = IDL.Service({
   'hasCheckIns' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
   'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
   'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+  'saveJournalEntry' : IDL.Func(
+      [IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
+      [],
+      [],
+    ),
 });
 
 export const idlInitArgs = [];
@@ -103,6 +117,13 @@ export const idlFactory = ({ IDL }) => {
     'guest' : IDL.Null,
   });
   const UserProfile = IDL.Record({ 'name' : IDL.Text });
+  const JournalEntry = IDL.Record({
+    'methodType' : IDL.Text,
+    'content' : IDL.Text,
+    'userId' : IDL.Principal,
+    'moodTag' : IDL.Opt(IDL.Text),
+    'timestamp' : Time,
+  });
   
   return IDL.Service({
     '_initializeAccessControlWithSecret' : IDL.Func([IDL.Text], [], []),
@@ -110,9 +131,11 @@ export const idlFactory = ({ IDL }) => {
     'addEmpatheticStory' : IDL.Func([EmpatheticStory], [], []),
     'addFollowUpPrompt' : IDL.Func([FollowUpPrompt], [], []),
     'assignCallerUserRole' : IDL.Func([IDL.Principal, UserRole], [], []),
+    'clearJournalEntries' : IDL.Func([], [], []),
     'getAllCheckIns' : IDL.Func([], [IDL.Vec(EmotionalCheckIn)], ['query']),
     'getCallerUserProfile' : IDL.Func([], [IDL.Opt(UserProfile)], ['query']),
     'getCallerUserRole' : IDL.Func([], [UserRole], ['query']),
+    'getJournalEntries' : IDL.Func([], [IDL.Vec(JournalEntry)], ['query']),
     'getRandomFollowUpPrompt' : IDL.Func(
         [],
         [IDL.Opt(FollowUpPrompt)],
@@ -131,6 +154,11 @@ export const idlFactory = ({ IDL }) => {
     'hasCheckIns' : IDL.Func([IDL.Principal], [IDL.Bool], ['query']),
     'isCallerAdmin' : IDL.Func([], [IDL.Bool], ['query']),
     'saveCallerUserProfile' : IDL.Func([UserProfile], [], []),
+    'saveJournalEntry' : IDL.Func(
+        [IDL.Text, IDL.Text, IDL.Opt(IDL.Text)],
+        [],
+        [],
+      ),
   });
 };
 

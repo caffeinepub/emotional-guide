@@ -8,6 +8,13 @@ export interface None {
 }
 export type Option<T> = Some<T> | None;
 export type Time = bigint;
+export interface JournalEntry {
+    methodType: string;
+    content: string;
+    userId: Principal;
+    moodTag?: string;
+    timestamp: Time;
+}
 export interface EmpatheticStory {
     title: string;
     content: string;
@@ -45,13 +52,16 @@ export interface backendInterface {
     addEmpatheticStory(story: EmpatheticStory): Promise<void>;
     addFollowUpPrompt(prompt: FollowUpPrompt): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    clearJournalEntries(): Promise<void>;
     getAllCheckIns(): Promise<Array<EmotionalCheckIn>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getJournalEntries(): Promise<Array<JournalEntry>>;
     getRandomFollowUpPrompt(): Promise<FollowUpPrompt | null>;
     getUserCheckIns(user: Principal): Promise<Array<EmotionalCheckIn>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     hasCheckIns(user: Principal): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    saveJournalEntry(methodType: string, content: string, moodTag: string | null): Promise<void>;
 }

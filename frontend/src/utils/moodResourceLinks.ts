@@ -3,7 +3,109 @@ export interface ResourceLink {
   url: string;
 }
 
-// Music links based on mood with pop artists
+export interface MusicTrack {
+  title: string;
+  artist: string;
+  genre: string;
+  embedUrl: string;
+}
+
+// Expanded music tracks organized by mood with embed-compatible YouTube URLs
+export const moodMusicTracks: Record<string, MusicTrack[]> = {
+  happy: [
+    { title: 'Good As Hell', artist: 'Lizzo', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/SmbmeOgWsqE' },
+    { title: 'Levitating', artist: 'Dua Lipa', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/TUVcZfQe-Kw' },
+    { title: 'Happy', artist: 'Pharrell Williams', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/y6Sxv-sUYtM' },
+    { title: 'Can\'t Stop the Feeling', artist: 'Justin Timberlake', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/ru0K8uYEZWw' },
+    { title: 'Shake It Off', artist: 'Taylor Swift', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/nfWlot6h_JM' },
+    { title: 'Uptown Funk', artist: 'Bruno Mars', genre: 'Funk', embedUrl: 'https://www.youtube.com/embed/OPf0YbXqDm0' },
+    { title: 'Walking on Sunshine', artist: 'Katrina & The Waves', genre: 'Pop Rock', embedUrl: 'https://www.youtube.com/embed/iPUmE-tne5U' },
+    { title: 'Don\'t Stop Me Now', artist: 'Queen', genre: 'Rock', embedUrl: 'https://www.youtube.com/embed/HgzGwKwLmgM' },
+  ],
+  sad: [
+    { title: 'When The Party\'s Over', artist: 'Billie Eilish', genre: 'Indie Pop', embedUrl: 'https://www.youtube.com/embed/pbMwTqkKSps' },
+    { title: 'drivers license', artist: 'Olivia Rodrigo', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/ZmDBbnmKpqQ' },
+    { title: 'Someone Like You', artist: 'Adele', genre: 'Soul', embedUrl: 'https://www.youtube.com/embed/hLQl3WQQoQ0' },
+    { title: 'Fix You', artist: 'Coldplay', genre: 'Alternative', embedUrl: 'https://www.youtube.com/embed/k4V3Mo61fJM' },
+    { title: 'The Night We Met', artist: 'Lord Huron', genre: 'Indie Folk', embedUrl: 'https://www.youtube.com/embed/KtlgYxa6BMU' },
+    { title: 'Skinny Love', artist: 'Bon Iver', genre: 'Indie Folk', embedUrl: 'https://www.youtube.com/embed/ssdgFoHLwnk' },
+    { title: 'Hurt', artist: 'Johnny Cash', genre: 'Country', embedUrl: 'https://www.youtube.com/embed/8AHCfZTRGiI' },
+    { title: 'The Scientist', artist: 'Coldplay', genre: 'Alternative', embedUrl: 'https://www.youtube.com/embed/RB-RcX5DS5A' },
+  ],
+  calm: [
+    { title: 'Only Time', artist: 'Enya', genre: 'New Age', embedUrl: 'https://www.youtube.com/embed/7wfYIMyS_dI' },
+    { title: 'Clair de Lune', artist: 'Claude Debussy', genre: 'Classical', embedUrl: 'https://www.youtube.com/embed/CvFH_6DNRCY' },
+    { title: 'Weightless', artist: 'Marconi Union', genre: 'Ambient', embedUrl: 'https://www.youtube.com/embed/UfcAVejslrU' },
+    { title: 'Better Together', artist: 'Jack Johnson', genre: 'Acoustic', embedUrl: 'https://www.youtube.com/embed/seZMONy5w7c' },
+    { title: 'Don\'t Know Why', artist: 'Norah Jones', genre: 'Jazz', embedUrl: 'https://www.youtube.com/embed/tO4dxvguQDk' },
+    { title: 'Gymnopédie No.1', artist: 'Erik Satie', genre: 'Classical', embedUrl: 'https://www.youtube.com/embed/S-Xm7s9eGxU' },
+    { title: 'Breathe (2 AM)', artist: 'Anna Nalick', genre: 'Indie Pop', embedUrl: 'https://www.youtube.com/embed/0OR6yBMFVMI' },
+    { title: 'Lo-Fi Chill Beats', artist: 'ChilledCow', genre: 'Lo-Fi', embedUrl: 'https://www.youtube.com/embed/5qap5aO4i9A' },
+  ],
+  energetic: [
+    { title: 'Blinding Lights', artist: 'The Weeknd', genre: 'Synth-Pop', embedUrl: 'https://www.youtube.com/embed/4NRXx6U8ABQ' },
+    { title: 'Lose Yourself', artist: 'Eminem', genre: 'Hip-Hop', embedUrl: 'https://www.youtube.com/embed/_Yhyp-_hX2s' },
+    { title: 'Eye of the Tiger', artist: 'Survivor', genre: 'Rock', embedUrl: 'https://www.youtube.com/embed/btPJPFnesV4' },
+    { title: 'Stronger', artist: 'Kanye West', genre: 'Hip-Hop', embedUrl: 'https://www.youtube.com/embed/PsO6ZnUZI0g' },
+    { title: 'Run the World (Girls)', artist: 'Beyoncé', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/VBmMU_iwe6U' },
+    { title: 'Thunderstruck', artist: 'AC/DC', genre: 'Rock', embedUrl: 'https://www.youtube.com/embed/v2AC41dglnM' },
+    { title: 'Power', artist: 'Kanye West', genre: 'Hip-Hop', embedUrl: 'https://www.youtube.com/embed/L53gjP-TtGE' },
+    { title: 'Till I Collapse', artist: 'Eminem', genre: 'Hip-Hop', embedUrl: 'https://www.youtube.com/embed/ytQ5CYE1VZw' },
+  ],
+  anxious: [
+    { title: 'Breathe Me', artist: 'Sia', genre: 'Indie Pop', embedUrl: 'https://www.youtube.com/embed/SFGvmrJ5rjM' },
+    { title: 'Holocene', artist: 'Bon Iver', genre: 'Indie Folk', embedUrl: 'https://www.youtube.com/embed/TWcyIpul8OE' },
+    { title: 'River Flows in You', artist: 'Yiruma', genre: 'Classical', embedUrl: 'https://www.youtube.com/embed/7maJOI3QMu0' },
+    { title: 'Thinking Out Loud', artist: 'Ed Sheeran', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/lp-EO5I60KA' },
+    { title: 'The Sound of Silence', artist: 'Simon & Garfunkel', genre: 'Folk', embedUrl: 'https://www.youtube.com/embed/4zLfCnGVeL4' },
+    { title: 'Somewhere Over the Rainbow', artist: 'Israel Kamakawiwo\'ole', genre: 'Hawaiian', embedUrl: 'https://www.youtube.com/embed/V1bFr2SWP1I' },
+    { title: 'Pure Shores', artist: 'All Saints', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/Yx3sMiGMFMQ' },
+    { title: 'Peaceful Piano Mix', artist: 'Various Artists', genre: 'Classical', embedUrl: 'https://www.youtube.com/embed/lFcSrYw-ARY' },
+  ],
+  angry: [
+    { title: 'Believer', artist: 'Imagine Dragons', genre: 'Rock', embedUrl: 'https://www.youtube.com/embed/7wtfhZwyrcc' },
+    { title: 'Break Stuff', artist: 'Limp Bizkit', genre: 'Nu-Metal', embedUrl: 'https://www.youtube.com/embed/ZpUYjpKg9KY' },
+    { title: 'In the End', artist: 'Linkin Park', genre: 'Nu-Metal', embedUrl: 'https://www.youtube.com/embed/eVTXPUF4Oz4' },
+    { title: 'Killing in the Name', artist: 'Rage Against the Machine', genre: 'Metal', embedUrl: 'https://www.youtube.com/embed/bWXazVhlyxQ' },
+    { title: 'Numb', artist: 'Linkin Park', genre: 'Nu-Metal', embedUrl: 'https://www.youtube.com/embed/kXYiU_JCYtU' },
+    { title: 'Roar', artist: 'Katy Perry', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/CevxZvSJLk8' },
+    { title: 'Fighter', artist: 'Christina Aguilera', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/OgMCg_8bHaQ' },
+    { title: 'Stronger (What Doesn\'t Kill You)', artist: 'Kelly Clarkson', genre: 'Pop Rock', embedUrl: 'https://www.youtube.com/embed/Xn676-fLq7I' },
+  ],
+  focus: [
+    { title: 'Lo-Fi Hip Hop Radio', artist: 'Lofi Girl', genre: 'Lo-Fi', embedUrl: 'https://www.youtube.com/embed/jfKfPfyJRdk' },
+    { title: 'Experience', artist: 'Ludovico Einaudi', genre: 'Classical', embedUrl: 'https://www.youtube.com/embed/hN_q-_nGv4U' },
+    { title: 'Divenire', artist: 'Ludovico Einaudi', genre: 'Classical', embedUrl: 'https://www.youtube.com/embed/h4OqHMGnlgk' },
+    { title: 'Brain Food Mix', artist: 'Various Artists', genre: 'Ambient', embedUrl: 'https://www.youtube.com/embed/WPni755-Krg' },
+    { title: 'Comptine d\'un autre été', artist: 'Yann Tiersen', genre: 'Classical', embedUrl: 'https://www.youtube.com/embed/yoC0KH5BVEM' },
+    { title: 'Study Music Alpha Waves', artist: 'YellowBrickCinema', genre: 'Ambient', embedUrl: 'https://www.youtube.com/embed/WD6DpKMBFMc' },
+    { title: 'Jazz for Study', artist: 'Various Artists', genre: 'Jazz', embedUrl: 'https://www.youtube.com/embed/Dx5qFachd3A' },
+    { title: 'Deep Focus Mix', artist: 'Various Artists', genre: 'Electronic', embedUrl: 'https://www.youtube.com/embed/b5ZESpOAolY' },
+  ],
+  party: [
+    { title: 'As It Was', artist: 'Harry Styles', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/H5v3kku4y6Q' },
+    { title: 'Dynamite', artist: 'BTS', genre: 'K-Pop', embedUrl: 'https://www.youtube.com/embed/gdZLi9oWNZg' },
+    { title: 'Dance Monkey', artist: 'Tones and I', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/q0hyYWKXF0Q' },
+    { title: 'Watermelon Sugar', artist: 'Harry Styles', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/E07s5ZYygMg' },
+    { title: 'Savage Love', artist: 'Jawsh 685 & Jason Derulo', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/FX9iFkFpFiI' },
+    { title: 'Peaches', artist: 'Justin Bieber', genre: 'R&B', embedUrl: 'https://www.youtube.com/embed/tQ0yjYMzekg' },
+    { title: 'Butter', artist: 'BTS', genre: 'K-Pop', embedUrl: 'https://www.youtube.com/embed/WMweEpGlu_U' },
+    { title: 'Stay', artist: 'The Kid LAROI & Justin Bieber', genre: 'Pop', embedUrl: 'https://www.youtube.com/embed/kTJczUoc26U' },
+  ],
+};
+
+export const moodCategories = [
+  { id: 'happy', label: 'Happy', emoji: '😊', color: 'from-yellow-400/20 to-orange-300/20', borderColor: 'border-yellow-400/40' },
+  { id: 'sad', label: 'Sad', emoji: '😔', color: 'from-blue-400/20 to-indigo-300/20', borderColor: 'border-blue-400/40' },
+  { id: 'calm', label: 'Calm', emoji: '😌', color: 'from-teal-400/20 to-cyan-300/20', borderColor: 'border-teal-400/40' },
+  { id: 'energetic', label: 'Energetic', emoji: '⚡', color: 'from-red-400/20 to-orange-400/20', borderColor: 'border-red-400/40' },
+  { id: 'anxious', label: 'Anxious', emoji: '😰', color: 'from-purple-400/20 to-violet-300/20', borderColor: 'border-purple-400/40' },
+  { id: 'angry', label: 'Angry', emoji: '😤', color: 'from-rose-500/20 to-red-400/20', borderColor: 'border-rose-500/40' },
+  { id: 'focus', label: 'Focus', emoji: '🎯', color: 'from-green-400/20 to-emerald-300/20', borderColor: 'border-green-400/40' },
+  { id: 'party', label: 'Party', emoji: '🎉', color: 'from-pink-400/20 to-fuchsia-300/20', borderColor: 'border-pink-400/40' },
+];
+
+// Music links based on mood with pop artists (legacy support)
 export function getMusicLinks(mood: string): ResourceLink[] {
   const musicMap: Record<string, ResourceLink[]> = {
     sad: [
@@ -221,54 +323,54 @@ export function getSelfCareLinks(mood: string): ResourceLink[] {
       { title: 'Self-Love Rituals', url: 'https://self-compassion.org/category/exercises/' },
     ],
     stressed: [
-      { title: 'Stress Relief Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Relaxation Techniques', url: 'https://www.healthline.com/health/stress-relief-plan' },
-      { title: 'Calming Self-Care Routine', url: 'https://www.mindful.org/take-a-mindful-moment-5-simple-practices-for-daily-life/' },
+      { title: 'Stress Relief Techniques', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
+      { title: 'Relaxation Exercises', url: 'https://www.healthline.com/health/self-care-strategies' },
+      { title: 'Mindful Self-Care', url: 'https://self-compassion.org/category/exercises/' },
     ],
     tired: [
-      { title: 'Restorative Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Energy Boosting Routine', url: 'https://www.healthline.com/health/self-care-strategies' },
-      { title: 'Rest and Recovery Tips', url: 'https://www.sleepfoundation.org/sleep-hygiene' },
+      { title: 'Rest & Recovery Tips', url: 'https://www.healthline.com/health/self-care-strategies' },
+      { title: 'Energy Restoration', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
+      { title: 'Sleep Hygiene Guide', url: 'https://www.sleepfoundation.org/sleep-hygiene' },
     ],
     overwhelmed: [
-      { title: 'Simplify Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Grounding Self-Care', url: 'https://www.healthline.com/health/grounding-techniques' },
-      { title: 'Minimal Self-Care Routine', url: 'https://www.mindful.org/take-a-mindful-moment-5-simple-practices-for-daily-life/' },
+      { title: 'Grounding Techniques', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
+      { title: 'Simplify Your Day', url: 'https://www.healthline.com/health/self-care-strategies' },
+      { title: 'Overwhelm Relief', url: 'https://self-compassion.org/category/exercises/' },
     ],
     happy: [
+      { title: 'Celebrate Yourself', url: 'https://www.healthline.com/health/self-care-strategies' },
       { title: 'Joyful Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Celebration Self-Care', url: 'https://www.healthline.com/health/self-care-strategies' },
-      { title: 'Positive Self-Care Rituals', url: 'https://www.mindful.org/take-a-mindful-moment-5-simple-practices-for-daily-life/' },
+      { title: 'Gratitude Practices', url: 'https://self-compassion.org/category/exercises/' },
     ],
     excited: [
-      { title: 'Energetic Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Active Self-Care Routine', url: 'https://www.healthline.com/health/self-care-strategies' },
-      { title: 'Dynamic Self-Care Ideas', url: 'https://www.mindful.org/take-a-mindful-moment-5-simple-practices-for-daily-life/' },
+      { title: 'Channel Your Energy', url: 'https://www.healthline.com/health/self-care-strategies' },
+      { title: 'Creative Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
+      { title: 'Mindful Excitement', url: 'https://self-compassion.org/category/exercises/' },
     ],
     grateful: [
-      { title: 'Gratitude Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Appreciation Rituals', url: 'https://www.healthline.com/health/self-care-strategies' },
-      { title: 'Thankful Self-Care', url: 'https://www.mindful.org/take-a-mindful-moment-5-simple-practices-for-daily-life/' },
+      { title: 'Gratitude Journaling', url: 'https://self-compassion.org/category/exercises/' },
+      { title: 'Appreciation Practices', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
+      { title: 'Thankfulness Rituals', url: 'https://www.healthline.com/health/self-care-strategies' },
     ],
     anxious: [
-      { title: 'Anxiety Relief Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Calming Self-Care Routine', url: 'https://www.healthline.com/health/anxiety/how-to-calm-anxiety' },
-      { title: 'Grounding Self-Care', url: 'https://www.healthline.com/health/grounding-techniques' },
+      { title: 'Anxiety Relief Techniques', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
+      { title: 'Calming Self-Care', url: 'https://self-compassion.org/category/exercises/' },
+      { title: 'Grounding Exercises', url: 'https://www.healthline.com/health/self-care-strategies' },
     ],
     angry: [
-      { title: 'Anger Release Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Cooling Down Routine', url: 'https://www.healthline.com/health/mental-health/how-to-control-anger' },
-      { title: 'Emotional Release Self-Care', url: 'https://www.mindful.org/take-a-mindful-moment-5-simple-practices-for-daily-life/' },
+      { title: 'Anger Management Tips', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
+      { title: 'Release & Reset', url: 'https://www.healthline.com/health/self-care-strategies' },
+      { title: 'Cooling Down Practices', url: 'https://self-compassion.org/category/exercises/' },
     ],
     confused: [
-      { title: 'Clarity Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Mindful Self-Care Routine', url: 'https://www.healthline.com/health/self-care-strategies' },
-      { title: 'Reflective Self-Care', url: 'https://www.mindful.org/take-a-mindful-moment-5-simple-practices-for-daily-life/' },
+      { title: 'Clarity Practices', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
+      { title: 'Decision-Making Self-Care', url: 'https://www.healthline.com/health/self-care-strategies' },
+      { title: 'Mindful Reflection', url: 'https://self-compassion.org/category/exercises/' },
     ],
     peaceful: [
-      { title: 'Peaceful Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
-      { title: 'Serene Self-Care Routine', url: 'https://www.healthline.com/health/self-care-strategies' },
-      { title: 'Tranquil Self-Care', url: 'https://www.mindful.org/take-a-mindful-moment-5-simple-practices-for-daily-life/' },
+      { title: 'Maintain Your Peace', url: 'https://self-compassion.org/category/exercises/' },
+      { title: 'Serene Self-Care', url: 'https://www.verywellmind.com/self-care-strategies-overall-stress-reduction-3144729' },
+      { title: 'Tranquil Practices', url: 'https://www.healthline.com/health/self-care-strategies' },
     ],
   };
 
@@ -279,200 +381,200 @@ export function getSelfCareLinks(mood: string): ResourceLink[] {
 export function getMeditationLinks(mood: string): ResourceLink[] {
   const meditationMap: Record<string, ResourceLink[]> = {
     sad: [
-      { title: 'Healing Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Self-Compassion Meditation', url: 'https://www.youtube.com/watch?v=11U0h0DPu7k' },
-      { title: 'Emotional Release Meditation', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Loving-Kindness Meditation', url: 'https://www.youtube.com/watch?v=sz7cpV7ERsM' },
+      { title: 'Healing Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Grief & Loss Meditation', url: 'https://www.youtube.com/watch?v=1vx8iUvfyCY' },
     ],
     lonely: [
-      { title: 'Loving-Kindness Meditation', url: 'https://www.youtube.com/watch?v=sz7cpV7ERsM' },
-      { title: 'Connection Meditation', url: 'https://www.youtube.com/watch?v=11U0h0DPu7k' },
-      { title: 'Self-Love Meditation', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Connection Meditation', url: 'https://www.youtube.com/watch?v=sz7cpV7ERsM' },
+      { title: 'Self-Love Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Belonging Meditation', url: 'https://www.youtube.com/watch?v=1vx8iUvfyCY' },
     ],
     stressed: [
-      { title: 'Stress Relief Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Deep Relaxation', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Calming Meditation', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Stress Relief Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Body Scan Meditation', url: 'https://www.youtube.com/watch?v=QS2yDmWk0vs' },
+      { title: 'Breathing Meditation', url: 'https://www.youtube.com/watch?v=wfDTp2GogaQ' },
     ],
     tired: [
-      { title: 'Energizing Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Morning Meditation', url: 'https://www.youtube.com/watch?v=11U0h0DPu7k' },
-      { title: 'Revitalizing Practice', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Restorative Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Sleep Meditation', url: 'https://www.youtube.com/watch?v=1vx8iUvfyCY' },
+      { title: 'Yoga Nidra', url: 'https://www.youtube.com/watch?v=M0u9GST_j3s' },
     ],
     overwhelmed: [
-      { title: 'Grounding Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Simplicity Meditation', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Centering Practice', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Grounding Meditation', url: 'https://www.youtube.com/watch?v=QS2yDmWk0vs' },
+      { title: 'Simplicity Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Clarity Meditation', url: 'https://www.youtube.com/watch?v=1vx8iUvfyCY' },
     ],
     happy: [
-      { title: 'Gratitude Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Joy Meditation', url: 'https://www.youtube.com/watch?v=11U0h0DPu7k' },
-      { title: 'Positive Energy Meditation', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Gratitude Meditation', url: 'https://www.youtube.com/watch?v=sz7cpV7ERsM' },
+      { title: 'Joy Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Abundance Meditation', url: 'https://www.youtube.com/watch?v=1vx8iUvfyCY' },
     ],
     excited: [
-      { title: 'Focus Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Channeling Energy Meditation', url: 'https://www.youtube.com/watch?v=11U0h0DPu7k' },
-      { title: 'Mindful Excitement', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Mindful Energy Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Focus Meditation', url: 'https://www.youtube.com/watch?v=QS2yDmWk0vs' },
+      { title: 'Channeling Excitement', url: 'https://www.youtube.com/watch?v=1vx8iUvfyCY' },
     ],
     grateful: [
-      { title: 'Gratitude Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Appreciation Practice', url: 'https://www.youtube.com/watch?v=11U0h0DPu7k' },
-      { title: 'Thankfulness Meditation', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Gratitude Meditation', url: 'https://www.youtube.com/watch?v=sz7cpV7ERsM' },
+      { title: 'Appreciation Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Thankfulness Practice', url: 'https://www.youtube.com/watch?v=1vx8iUvfyCY' },
     ],
     anxious: [
-      { title: 'Anxiety Relief Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Calming Breath Work', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Peace Meditation', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: '5-Minute Anxiety Relief', url: 'https://www.youtube.com/watch?v=wfDTp2GogaQ' },
+      { title: 'Calming Breath Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Anxiety Grounding', url: 'https://www.youtube.com/watch?v=QS2yDmWk0vs' },
     ],
     angry: [
-      { title: 'Anger Release Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Cooling Meditation', url: 'https://www.youtube.com/watch?v=11U0h0DPu7k' },
-      { title: 'Emotional Balance', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Anger Release Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Cooling Down Meditation', url: 'https://www.youtube.com/watch?v=QS2yDmWk0vs' },
+      { title: 'Peace Meditation', url: 'https://www.youtube.com/watch?v=sz7cpV7ERsM' },
     ],
     confused: [
-      { title: 'Clarity Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Mindfulness Practice', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Insight Meditation', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Clarity Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Decision Meditation', url: 'https://www.youtube.com/watch?v=QS2yDmWk0vs' },
+      { title: 'Insight Meditation', url: 'https://www.youtube.com/watch?v=1vx8iUvfyCY' },
     ],
     peaceful: [
-      { title: 'Deep Peace Meditation', url: 'https://www.youtube.com/watch?v=z6X5oEIg6Ak' },
-      { title: 'Tranquility Practice', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Serenity Meditation', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Deepening Peace Meditation', url: 'https://www.youtube.com/watch?v=sz7cpV7ERsM' },
+      { title: 'Serenity Meditation', url: 'https://www.youtube.com/watch?v=inpok4MKVLM' },
+      { title: 'Tranquility Practice', url: 'https://www.youtube.com/watch?v=1vx8iUvfyCY' },
     ],
   };
 
   return meditationMap[mood] || meditationMap.happy;
 }
 
-// Video recommendations based on mood (including music videos)
-export function getVideoLinks(mood: string): ResourceLink[] {
-  const videoMap: Record<string, ResourceLink[]> = {
+// What to watch links based on mood
+export function getWatchLinks(mood: string): ResourceLink[] {
+  const watchMap: Record<string, ResourceLink[]> = {
     sad: [
-      { title: 'Billie Eilish - When The Party\'s Over (Music Video)', url: 'https://www.youtube.com/watch?v=pbMwTqkKSps' },
-      { title: 'Uplifting Short Films', url: 'https://www.youtube.com/watch?v=nBobmn_u98w' },
-      { title: 'Comfort Videos', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Uplifting Movie Recommendations', url: 'https://www.imdb.com/list/ls055592025/' },
+      { title: 'Feel-Good Shows', url: 'https://www.netflix.com/browse/genre/26' },
+      { title: 'Comfort Movies', url: 'https://www.imdb.com/list/ls055592025/' },
     ],
     lonely: [
-      { title: 'Lewis Capaldi - Someone You Loved (Music Video)', url: 'https://www.youtube.com/watch?v=zABLecsR5UE' },
-      { title: 'Connection Stories', url: 'https://www.youtube.com/watch?v=nBobmn_u98w' },
-      { title: 'Heartwarming Videos', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Friendship Movies', url: 'https://www.imdb.com/list/ls055592025/' },
+      { title: 'Community Shows', url: 'https://www.netflix.com/browse/genre/26' },
+      { title: 'Heartwarming Films', url: 'https://www.imdb.com/list/ls055592025/' },
     ],
     stressed: [
-      { title: 'Relaxing Nature Videos', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Calming Visuals', url: 'https://www.youtube.com/watch?v=eKFTSSKCzWA' },
-      { title: 'Stress Relief Videos', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Comedy Specials', url: 'https://www.netflix.com/browse/genre/11559' },
+      { title: 'Light-Hearted Shows', url: 'https://www.netflix.com/browse/genre/26' },
+      { title: 'Nature Documentaries', url: 'https://www.netflix.com/browse/genre/48768' },
     ],
     tired: [
-      { title: 'Energizing Videos', url: 'https://www.youtube.com/watch?v=gC_L9qAHVJ8' },
-      { title: 'Motivational Content', url: 'https://www.youtube.com/watch?v=nBobmn_u98w' },
-      { title: 'Wake Up Videos', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Relaxing Nature Docs', url: 'https://www.netflix.com/browse/genre/48768' },
+      { title: 'Cozy Shows', url: 'https://www.netflix.com/browse/genre/26' },
+      { title: 'Gentle Animations', url: 'https://www.netflix.com/browse/genre/11881' },
     ],
     overwhelmed: [
-      { title: 'Simple Calming Videos', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Grounding Content', url: 'https://www.youtube.com/watch?v=eKFTSSKCzWA' },
-      { title: 'Peaceful Videos', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Simple Comedies', url: 'https://www.netflix.com/browse/genre/11559' },
+      { title: 'Short Episodes Shows', url: 'https://www.netflix.com/browse/genre/26' },
+      { title: 'Mindful Documentaries', url: 'https://www.netflix.com/browse/genre/48768' },
     ],
     happy: [
-      { title: 'Dua Lipa - Levitating (Music Video)', url: 'https://www.youtube.com/watch?v=TUVcZfQe-Kw' },
-      { title: 'Feel-Good Videos', url: 'https://www.youtube.com/watch?v=nBobmn_u98w' },
-      { title: 'Joyful Content', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Adventure Movies', url: 'https://www.netflix.com/browse/genre/7442' },
+      { title: 'Musical Films', url: 'https://www.netflix.com/browse/genre/13335' },
+      { title: 'Comedy Shows', url: 'https://www.netflix.com/browse/genre/11559' },
     ],
     excited: [
-      { title: 'The Weeknd - Blinding Lights (Music Video)', url: 'https://www.youtube.com/watch?v=4NRXx6U8ABQ' },
-      { title: 'High Energy Videos', url: 'https://www.youtube.com/watch?v=gC_L9qAHVJ8' },
-      { title: 'Exciting Content', url: 'https://www.youtube.com/watch?v=nBobmn_u98w' },
+      { title: 'Action Movies', url: 'https://www.netflix.com/browse/genre/801362' },
+      { title: 'Thriller Shows', url: 'https://www.netflix.com/browse/genre/8933' },
+      { title: 'Sci-Fi Films', url: 'https://www.netflix.com/browse/genre/1492' },
     ],
     grateful: [
-      { title: 'Inspirational Videos', url: 'https://www.youtube.com/watch?v=nBobmn_u98w' },
-      { title: 'Gratitude Content', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
-      { title: 'Thankful Stories', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
+      { title: 'Inspirational Documentaries', url: 'https://www.netflix.com/browse/genre/48768' },
+      { title: 'Heartwarming Stories', url: 'https://www.imdb.com/list/ls055592025/' },
+      { title: 'Uplifting Films', url: 'https://www.netflix.com/browse/genre/26' },
     ],
     anxious: [
-      { title: 'Calming Nature Videos', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Anxiety Relief Content', url: 'https://www.youtube.com/watch?v=eKFTSSKCzWA' },
-      { title: 'Peaceful Videos', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Calming Nature Docs', url: 'https://www.netflix.com/browse/genre/48768' },
+      { title: 'Light Comedies', url: 'https://www.netflix.com/browse/genre/11559' },
+      { title: 'Soothing Animations', url: 'https://www.netflix.com/browse/genre/11881' },
     ],
     angry: [
-      { title: 'Imagine Dragons - Believer (Music Video)', url: 'https://www.youtube.com/watch?v=7wtfhZwyrcc' },
-      { title: 'Release Videos', url: 'https://www.youtube.com/watch?v=gC_L9qAHVJ8' },
-      { title: 'Perspective Content', url: 'https://www.youtube.com/watch?v=nBobmn_u98w' },
+      { title: 'Action Release Films', url: 'https://www.netflix.com/browse/genre/801362' },
+      { title: 'Sports Documentaries', url: 'https://www.netflix.com/browse/genre/48768' },
+      { title: 'Empowering Stories', url: 'https://www.imdb.com/list/ls055592025/' },
     ],
     confused: [
-      { title: 'Clarity Videos', url: 'https://www.youtube.com/watch?v=nBobmn_u98w' },
-      { title: 'Mindful Content', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Reflective Videos', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Thought-Provoking Films', url: 'https://www.imdb.com/list/ls055592025/' },
+      { title: 'Philosophical Documentaries', url: 'https://www.netflix.com/browse/genre/48768' },
+      { title: 'Mystery Shows', url: 'https://www.netflix.com/browse/genre/9994' },
     ],
     peaceful: [
-      { title: 'Serene Nature Videos', url: 'https://www.youtube.com/watch?v=1ZYbU82GVz4' },
-      { title: 'Tranquil Content', url: 'https://www.youtube.com/watch?v=eKFTSSKCzWA' },
-      { title: 'Peaceful Visuals', url: 'https://www.youtube.com/watch?v=ZToicYcHIOU' },
+      { title: 'Nature Documentaries', url: 'https://www.netflix.com/browse/genre/48768' },
+      { title: 'Peaceful Animations', url: 'https://www.netflix.com/browse/genre/11881' },
+      { title: 'Serene Films', url: 'https://www.imdb.com/list/ls055592025/' },
     ],
   };
 
-  return videoMap[mood] || videoMap.happy;
+  return watchMap[mood] || watchMap.happy;
 }
 
 // Journaling prompts based on mood
-export function getJournalingPrompts(mood: string): string[] {
-  const journalingMap: Record<string, string[]> = {
+export function getJournalingPrompts(mood: string): ResourceLink[] {
+  const journalingMap: Record<string, ResourceLink[]> = {
     sad: [
-      'What emotions am I feeling right now, and where do I feel them in my body?',
-      'What would I say to a friend who was feeling the way I feel right now?',
-      'What small thing could bring me a moment of comfort today?',
+      { title: 'Processing Sadness Prompts', url: 'https://www.journalbuddha.com/sad-journal-prompts/' },
+      { title: 'Healing Writing Exercises', url: 'https://www.journalbuddha.com/healing-journal-prompts/' },
+      { title: 'Emotional Release Journaling', url: 'https://www.journalbuddha.com/emotional-journal-prompts/' },
     ],
     lonely: [
-      'What qualities do I appreciate about myself?',
-      'When have I felt most connected to others in my life?',
-      'What can I do today to nurture my relationship with myself?',
+      { title: 'Connection Journaling', url: 'https://www.journalbuddha.com/loneliness-journal-prompts/' },
+      { title: 'Self-Discovery Prompts', url: 'https://www.journalbuddha.com/self-discovery-journal-prompts/' },
+      { title: 'Relationship Reflection', url: 'https://www.journalbuddha.com/relationship-journal-prompts/' },
     ],
     stressed: [
-      'What is within my control right now, and what is not?',
-      'What would help me feel more grounded in this moment?',
-      'What can I let go of today?',
+      { title: 'Stress Relief Journaling', url: 'https://www.journalbuddha.com/stress-journal-prompts/' },
+      { title: 'Clarity Writing Prompts', url: 'https://www.journalbuddha.com/clarity-journal-prompts/' },
+      { title: 'Problem-Solving Journal', url: 'https://www.journalbuddha.com/problem-solving-journal-prompts/' },
     ],
     tired: [
-      'What does my body need right now?',
-      'What activities drain my energy, and which ones restore it?',
-      'How can I be more gentle with myself today?',
+      { title: 'Rest & Renewal Prompts', url: 'https://www.journalbuddha.com/rest-journal-prompts/' },
+      { title: 'Energy Journaling', url: 'https://www.journalbuddha.com/energy-journal-prompts/' },
+      { title: 'Self-Care Reflection', url: 'https://www.journalbuddha.com/self-care-journal-prompts/' },
     ],
     overwhelmed: [
-      'What is the one most important thing I need to focus on right now?',
-      'What can I simplify or delegate today?',
-      'What would make today feel more manageable?',
+      { title: 'Simplify Your Life Prompts', url: 'https://www.journalbuddha.com/overwhelm-journal-prompts/' },
+      { title: 'Priority Setting Journal', url: 'https://www.journalbuddha.com/priority-journal-prompts/' },
+      { title: 'Grounding Writing', url: 'https://www.journalbuddha.com/grounding-journal-prompts/' },
     ],
     happy: [
-      'What am I grateful for in this moment?',
-      'What brought me joy today, and how can I create more of it?',
-      'Who or what contributed to my happiness today?',
+      { title: 'Gratitude Journaling', url: 'https://www.journalbuddha.com/gratitude-journal-prompts/' },
+      { title: 'Joy Amplification Prompts', url: 'https://www.journalbuddha.com/joy-journal-prompts/' },
+      { title: 'Celebration Writing', url: 'https://www.journalbuddha.com/celebration-journal-prompts/' },
     ],
     excited: [
-      'What am I looking forward to, and why does it excite me?',
-      'How can I channel this energy into something meaningful?',
-      'What possibilities am I seeing right now?',
+      { title: 'Goal Setting Journal', url: 'https://www.journalbuddha.com/goal-journal-prompts/' },
+      { title: 'Vision Board Writing', url: 'https://www.journalbuddha.com/vision-journal-prompts/' },
+      { title: 'Excitement Channeling', url: 'https://www.journalbuddha.com/excitement-journal-prompts/' },
     ],
     grateful: [
-      'What are three things I\'m grateful for today?',
-      'Who has made a positive impact on my life recently?',
-      'What simple pleasures did I enjoy today?',
+      { title: 'Deep Gratitude Prompts', url: 'https://www.journalbuddha.com/gratitude-journal-prompts/' },
+      { title: 'Appreciation Writing', url: 'https://www.journalbuddha.com/appreciation-journal-prompts/' },
+      { title: 'Thankfulness Journal', url: 'https://www.journalbuddha.com/thankfulness-journal-prompts/' },
     ],
     anxious: [
-      'What am I worried about, and is there evidence for or against this worry?',
-      'What has helped me feel calm in the past?',
-      'What can I do right now to feel more safe and secure?',
+      { title: 'Anxiety Relief Prompts', url: 'https://www.journalbuddha.com/anxiety-journal-prompts/' },
+      { title: 'Worry Journaling', url: 'https://www.journalbuddha.com/worry-journal-prompts/' },
+      { title: 'Calm Writing Exercises', url: 'https://www.journalbuddha.com/calm-journal-prompts/' },
     ],
     angry: [
-      'What triggered my anger, and what need of mine is not being met?',
-      'How can I express this emotion in a healthy way?',
-      'What would help me feel heard and understood?',
+      { title: 'Anger Processing Prompts', url: 'https://www.journalbuddha.com/anger-journal-prompts/' },
+      { title: 'Perspective Writing', url: 'https://www.journalbuddha.com/perspective-journal-prompts/' },
+      { title: 'Release & Forgiveness', url: 'https://www.journalbuddha.com/forgiveness-journal-prompts/' },
     ],
     confused: [
-      'What am I uncertain about, and what information might help?',
-      'What do I know for sure right now?',
-      'What would clarity look like in this situation?',
+      { title: 'Clarity Seeking Prompts', url: 'https://www.journalbuddha.com/clarity-journal-prompts/' },
+      { title: 'Decision Making Journal', url: 'https://www.journalbuddha.com/decision-journal-prompts/' },
+      { title: 'Insight Writing', url: 'https://www.journalbuddha.com/insight-journal-prompts/' },
     ],
     peaceful: [
-      'What contributed to this sense of peace?',
-      'How can I cultivate more moments like this?',
-      'What does inner peace mean to me?',
+      { title: 'Deepening Peace Prompts', url: 'https://www.journalbuddha.com/peace-journal-prompts/' },
+      { title: 'Serenity Writing', url: 'https://www.journalbuddha.com/serenity-journal-prompts/' },
+      { title: 'Mindful Reflection', url: 'https://www.journalbuddha.com/mindful-journal-prompts/' },
     ],
   };
 

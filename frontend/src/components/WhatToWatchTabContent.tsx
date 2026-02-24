@@ -1,12 +1,12 @@
 import { ExternalLink } from 'lucide-react';
-import { getVideoLinks } from '../utils/moodResourceLinks';
+import { getWatchLinks } from '../utils/moodResourceLinks';
 
 interface WhatToWatchTabContentProps {
   mood: string;
 }
 
 export default function WhatToWatchTabContent({ mood }: WhatToWatchTabContentProps) {
-  const videoLinks = getVideoLinks(mood);
+  const videoLinks = getWatchLinks(mood);
 
   return (
     <div className="space-y-3">

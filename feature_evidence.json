@@ -2,28 +2,8 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-debug-and-fix-the-tabbed-resource-interface-in-conversationinput-component-to-ensure-all-7-tabs-music-dance-stories-self-care-meditation-what-to-watch-journaling-are-properly-rendered-and-visible-in-the-deployed-application",
-      "featureTitle": "Debug and fix the tabbed resource interface in ConversationInput component to ensure all 7 tabs (Music, Dance, Stories, Self Care, Meditation, What to Watch, Journaling) are properly rendered and visible in the deployed application",
-      "files": [
-        "frontend/src/components/ConversationInput.tsx",
-        "frontend/src/index.css"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-62"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-verify-that-the-conversationinput-component-s-tab-container-and-tab-buttons-have-correct-css-classes-and-are-not-being-hidden-by-display-none-visibility-hidden-or-z-index-issues",
-      "featureTitle": "Verify that the ConversationInput component's tab container and tab buttons have correct CSS classes and are not being hidden by display:none, visibility:hidden, or z-index issues",
+      "featureId": "feature-in-conversationinput-tsx-remove-the-tabbed-panel-of-mood-based-resources-that-appears-after-the-user-submits-their-mood-feeling-this-includes-removing-the-tabs-and-their-content-for-music-dance-stories-self-care-meditation-what-to-watch-and-journaling-the-input-form-for-submitting-emotional-check-ins-should-remain-intact",
+      "featureTitle": "In ConversationInput.tsx, remove the tabbed panel of mood-based resources that appears after the user submits their mood/feeling. This includes removing the tabs and their content for: Music, Dance, Stories, Self Care, Meditation, What to Watch, and Journaling. The input form for submitting emotional check-ins should remain intact.",
       "files": [
         "frontend/src/components/ConversationInput.tsx"
       ],
@@ -36,26 +16,7 @@
         "github-export-icp-cli@1.0.0"
       ],
       "testIds": [
-        "REQ-63"
-      ],
-      "confidence": "high"
-    },
-    {
-      "featureId": "feature-add-browser-console-logging-to-conversationinput-component-to-track-tab-state-rendering-lifecycle-and-any-errors-that-might-prevent-tabs-from-displaying",
-      "featureTitle": "Add browser console logging to ConversationInput component to track tab state, rendering lifecycle, and any errors that might prevent tabs from displaying",
-      "files": [
-        "frontend/src/components/ConversationInput.tsx"
-      ],
-      "components": [
-        "authorization@4.0.0",
-        "core-infrastructure@1.0.2",
-        "shadcn-ui@1.0.0",
-        "build-template-react@1.0.0",
-        "initial-app@1.0.0",
-        "github-export-icp-cli@1.0.0"
-      ],
-      "testIds": [
-        "REQ-64"
+        "REQ-1"
       ],
       "confidence": "high"
     }

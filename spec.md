@@ -1,12 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Fix the missing tabs in the ConversationInput component so all 7 resource category tabs are visible and functional in the deployed application.
+**Goal:** Remove the mood-based activity tab panel that appears after a user selects their mood in the conversation input view.
 
 **Planned changes:**
-- Debug and restore visibility of all 7 tabs (Music, Dance, Stories, Self Care, Meditation, What to Watch, Journaling) in the ConversationInput component
-- Verify and fix any CSS issues (display, visibility, z-index) that may be hiding the tab interface
-- Add console logging to track tab rendering lifecycle, state changes, and identify the root cause of the visibility issue
-- Ensure tab navigation works correctly and tabs remain visible after mood selection
+- In `ConversationInput.tsx`, remove the tabbed panel (Music, Dance, Stories, Self Care, Meditation, What to Watch, and Journaling) that displays after the user submits their mood/feeling.
+- Clean up any unused imports or references to the removed tab content components in `ConversationInput.tsx`.
+- Leave the emotional check-in input form and mood submission flow fully intact.
+- Leave the bottom navigation tabs (Music, Journal, Meditation, Good Vibes, Watch This) unchanged.
 
-**User-visible outcome:** Users will see and be able to interact with all 7 resource category tabs in the chat interface, allowing them to browse and select different types of wellness resources.
+**User-visible outcome:** After selecting their mood, users no longer see the activity tab panel. The check-in input form continues to work as before.

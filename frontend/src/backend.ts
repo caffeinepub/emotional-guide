@@ -90,6 +90,13 @@ export class ExternalBlob {
     }
 }
 export type Time = bigint;
+export interface JournalEntry {
+    methodType: string;
+    content: string;
+    userId: Principal;
+    moodTag?: string;
+    timestamp: Time;
+}
 export interface EmpatheticStory {
     title: string;
     content: string;
@@ -128,17 +135,20 @@ export interface backendInterface {
     addEmpatheticStory(story: EmpatheticStory): Promise<void>;
     addFollowUpPrompt(prompt: FollowUpPrompt): Promise<void>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
+    clearJournalEntries(): Promise<void>;
     getAllCheckIns(): Promise<Array<EmotionalCheckIn>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getJournalEntries(): Promise<Array<JournalEntry>>;
     getRandomFollowUpPrompt(): Promise<FollowUpPrompt | null>;
     getUserCheckIns(user: Principal): Promise<Array<EmotionalCheckIn>>;
     getUserProfile(user: Principal): Promise<UserProfile | null>;
     hasCheckIns(user: Principal): Promise<boolean>;
     isCallerAdmin(): Promise<boolean>;
     saveCallerUserProfile(profile: UserProfile): Promise<void>;
+    saveJournalEntry(methodType: string, content: string, moodTag: string | null): Promise<void>;
 }
-import type { FollowUpPrompt as _FollowUpPrompt, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
+import type { FollowUpPrompt as _FollowUpPrompt, JournalEntry as _JournalEntry, Time as _Time, UserProfile as _UserProfile, UserRole as _UserRole } from "./declarations/backend.did.d.ts";
 export class Backend implements backendInterface {
     constructor(private actor: ActorSubclass<_SERVICE>, private _uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, private _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, private processError?: (error: unknown) => never){}
     async _initializeAccessControlWithSecret(arg0: string): Promise<void> {
@@ -211,6 +221,20 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async clearJournalEntries(): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.clearJournalEntries();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.clearJournalEntries();
+            return result;
+        }
+    }
     async getAllCheckIns(): Promise<Array<EmotionalCheckIn>> {
         if (this.processError) {
             try {
@@ -253,18 +277,32 @@ export class Backend implements backendInterface {
             return from_candid_UserRole_n4(this._uploadFile, this._downloadFile, result);
         }
     }
+    async getJournalEntries(): Promise<Array<JournalEntry>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getJournalEntries();
+                return from_candid_vec_n6(this._uploadFile, this._downloadFile, result);
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getJournalEntries();
+            return from_candid_vec_n6(this._uploadFile, this._downloadFile, result);
+        }
+    }
     async getRandomFollowUpPrompt(): Promise<FollowUpPrompt | null> {
         if (this.processError) {
             try {
                 const result = await this.actor.getRandomFollowUpPrompt();
-                return from_candid_opt_n6(this._uploadFile, this._downloadFile, result);
+                return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
             } catch (e) {
                 this.processError(e);
                 throw new Error("unreachable");
             }
         } else {
             const result = await this.actor.getRandomFollowUpPrompt();
-            return from_candid_opt_n6(this._uploadFile, this._downloadFile, result);
+            return from_candid_opt_n10(this._uploadFile, this._downloadFile, result);
         }
     }
     async getUserCheckIns(arg0: Principal): Promise<Array<EmotionalCheckIn>> {
@@ -337,15 +375,56 @@ export class Backend implements backendInterface {
             return result;
         }
     }
+    async saveJournalEntry(arg0: string, arg1: string, arg2: string | null): Promise<void> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.saveJournalEntry(arg0, arg1, to_candid_opt_n11(this._uploadFile, this._downloadFile, arg2));
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.saveJournalEntry(arg0, arg1, to_candid_opt_n11(this._uploadFile, this._downloadFile, arg2));
+            return result;
+        }
+    }
+}
+function from_candid_JournalEntry_n7(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _JournalEntry): JournalEntry {
+    return from_candid_record_n8(_uploadFile, _downloadFile, value);
 }
 function from_candid_UserRole_n4(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: _UserRole): UserRole {
     return from_candid_variant_n5(_uploadFile, _downloadFile, value);
 }
+function from_candid_opt_n10(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_FollowUpPrompt]): FollowUpPrompt | null {
+    return value.length === 0 ? null : value[0];
+}
 function from_candid_opt_n3(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_UserProfile]): UserProfile | null {
     return value.length === 0 ? null : value[0];
 }
-function from_candid_opt_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [_FollowUpPrompt]): FollowUpPrompt | null {
+function from_candid_opt_n9(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: [] | [string]): string | null {
     return value.length === 0 ? null : value[0];
+}
+function from_candid_record_n8(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
+    methodType: string;
+    content: string;
+    userId: Principal;
+    moodTag: [] | [string];
+    timestamp: _Time;
+}): {
+    methodType: string;
+    content: string;
+    userId: Principal;
+    moodTag?: string;
+    timestamp: Time;
+} {
+    return {
+        methodType: value.methodType,
+        content: value.content,
+        userId: value.userId,
+        moodTag: record_opt_to_undefined(from_candid_opt_n9(_uploadFile, _downloadFile, value.moodTag)),
+        timestamp: value.timestamp
+    };
 }
 function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: {
     admin: null;
@@ -356,8 +435,14 @@ function from_candid_variant_n5(_uploadFile: (file: ExternalBlob) => Promise<Uin
 }): UserRole {
     return "admin" in value ? UserRole.admin : "user" in value ? UserRole.user : "guest" in value ? UserRole.guest : value;
 }
+function from_candid_vec_n6(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: Array<_JournalEntry>): Array<JournalEntry> {
+    return value.map((x)=>from_candid_JournalEntry_n7(_uploadFile, _downloadFile, x));
+}
 function to_candid_UserRole_n1(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): _UserRole {
     return to_candid_variant_n2(_uploadFile, _downloadFile, value);
+}
+function to_candid_opt_n11(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: string | null): [] | [string] {
+    return value === null ? candid_none() : candid_some(value);
 }
 function to_candid_variant_n2(_uploadFile: (file: ExternalBlob) => Promise<Uint8Array>, _downloadFile: (file: Uint8Array) => Promise<ExternalBlob>, value: UserRole): {
     admin: null;

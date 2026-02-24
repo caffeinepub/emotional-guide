@@ -1,72 +1,38 @@
 {
   "kind": "build_request",
-  "title": "Fix missing tabs in deployed ConversationInput component",
-  "projectName": "Ana",
-  "priority": "high",
+  "title": "Remove mood-based activity tabs from post-mood-selection view",
+  "projectName": "Ana Wellness",
+  "priority": "normal",
   "requirements": [
     {
-      "id": "REQ-62",
-      "text": "Debug and fix the tabbed resource interface in ConversationInput component to ensure all 7 tabs (Music, Dance, Stories, Self Care, Meditation, What to Watch, Journaling) are properly rendered and visible in the deployed application",
+      "id": "REQ-1",
+      "text": "In ConversationInput.tsx, remove the tabbed panel of mood-based resources that appears after the user submits their mood/feeling. This includes removing the tabs and their content for: Music, Dance, Stories, Self Care, Meditation, What to Watch, and Journaling. The input form for submitting emotional check-ins should remain intact.",
       "target": "frontend",
       "source": {
         "messageIds": [
-          "msg-latest"
+          "msg-4"
         ],
         "quotes": [
-          "tabs are not there"
+          "remove the options, music, dance, stories, self care, meditation, what to watch and journaling that appear after user clicks on how are you feeling? and chooses their mood"
         ]
       },
       "acceptanceCriteria": [
-        "All 7 tabs (Music, Dance, Stories, Self Care, Meditation, What to Watch, Journaling) are visible in the ConversationInput component",
-        "Tab navigation works correctly allowing users to switch between different resource categories",
-        "Each tab displays its corresponding content component (MusicTabContent, DanceTabContent, etc.)",
-        "Tabs remain visible and functional after mood selection in the 'How are you feeling?' dropdown",
-        "Tab styling and layout match the intended design with proper spacing and visual hierarchy"
-      ]
-    },
-    {
-      "id": "REQ-63",
-      "text": "Verify that the ConversationInput component's tab container and tab buttons have correct CSS classes and are not being hidden by display:none, visibility:hidden, or z-index issues",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Tab container element is rendered in the DOM with visible display properties",
-        "Tab button elements are present and clickable in the UI",
-        "No CSS rules are inadvertently hiding the tab interface",
-        "Z-index stacking context does not place tabs behind other elements"
-      ]
-    },
-    {
-      "id": "REQ-64",
-      "text": "Add browser console logging to ConversationInput component to track tab state, rendering lifecycle, and any errors that might prevent tabs from displaying",
-      "target": "frontend",
-      "source": {
-        "messageIds": [
-          "msg-latest"
-        ]
-      },
-      "acceptanceCriteria": [
-        "Console logs confirm tab component is mounting and rendering",
-        "Active tab state changes are logged when users interact with tabs",
-        "Any errors or warnings related to tab rendering are captured and logged",
-        "Logs help identify whether the issue is conditional rendering, state management, or CSS-related"
+        "After a user selects their mood/feeling, no tab panel with Music, Dance, Stories, Self Care, Meditation, What to Watch, or Journaling options is displayed.",
+        "The emotional check-in input form still functions correctly for submitting moods.",
+        "No broken imports or unused tab content components remain referenced in ConversationInput.tsx."
       ]
     }
   ],
   "constraints": [
-    "Do not modify the 'How are you feeling?' mood dropdown - it must remain exactly as currently implemented",
-    "Preserve all existing tab content components (MusicTabContent, DanceTabContent, StoriesTabContent, SelfCareTabContent, MeditationTabContent, WhatToWatchTabContent, JournalingTabContent)",
-    "Maintain the current mood-based resource link mappings in moodResourceLinks.ts"
+    "Do not remove or modify the bottom navigation tabs (ChatBottomTabs.tsx) — the Music, Journal, Meditation, Good Vibes, and Watch This tabs in the bottom bar should remain.",
+    "Do not alter the backend or any data-fetching logic unrelated to the removed UI.",
+    "The emotional check-in input and mood submission flow must remain fully functional."
   ],
   "nonGoals": [
-    "Adding new tabs beyond the existing 7",
-    "Changing tab content or resource links",
-    "Modifying the overall ConversationInput component layout or styling beyond fixing tab visibility",
-    "Implementing new features or functionality"
+    "Removing the Music, Journal, or Meditation full-screen pages.",
+    "Removing the bottom tab navigation bar.",
+    "Changing any backend logic or data models.",
+    "Modifying the ConversationHistory or ResponseDisplay components."
   ],
   "imageRequirements": {
     "required": [],

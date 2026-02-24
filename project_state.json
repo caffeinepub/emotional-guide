@@ -1,14 +1,16 @@
 {
   "schemaVersion": "1.0.0",
   "projectStateVersion": 3,
-  "summary": "A mood-based app where users select how they are feeling. Removing the activity options (music, dance, stories, self care, meditation, what to watch, journaling) that appear after the user selects their mood.",
+  "summary": "Chat application project where messages should be visible and aligned correctly.",
   "architectural_notes": [],
-  "known_issues": [],
-  "isFixRequest": false,
+  "known_issues": [
+    "Chat messages are not visible to the user"
+  ],
+  "isFixRequest": true,
   "existing_features": [
     {
-      "id": "feature-in-conversationinput-tsx-remove-the-tabbed-panel-of-mood-based-resources-that-appears-after-the-user-submits-their-mood-feeling-this-includes-removing-the-tabs-and-their-content-for-music-dance-stories-self-care-meditation-what-to-watch-and-journaling-the-input-form-for-submitting-emotional-check-ins-should-remain-intact",
-      "title": "In ConversationInput.tsx, remove the tabbed panel of mood-based resources that appears after the user submits their mood/feeling. This includes removing the tabs and their content for: Music, Dance, Stories, Self Care, Meditation, What to Watch, and Journaling. The input form for submitting emotional check-ins should remain intact.",
+      "id": "feature-fix-the-conversationhistory-component-so-that-both-user-sent-messages-and-ana-s-responses-are-visibly-rendered-on-screen-ensure-message-text-bubble-backgrounds-and-text-colors-have-sufficient-contrast-against-the-page-background-so-messages-are-readable-in-both-light-and-dark-themes-verify-that-right-aligned-sent-bubbles-warm-coral-style-and-left-aligned-ana-response-cards-frosted-glass-style-defined-in-index-css-are-correctly-applied-and-not-hidden-by-transparent-backgrounds-zero-opacity-or-conflicting-css-rules",
+      "title": "Fix the ConversationHistory component so that both user-sent messages and Ana's responses are visibly rendered on screen. Ensure message text, bubble backgrounds, and text colors have sufficient contrast against the page background so messages are readable in both light and dark themes. Verify that right-aligned sent bubbles (warm-coral style) and left-aligned Ana response cards (frosted-glass style) defined in index.css are correctly applied and not hidden by transparent backgrounds, zero opacity, or conflicting CSS rules.",
       "reqIds": [
         "REQ-1"
       ],
@@ -17,7 +19,7 @@
   ],
   "new_feature_requests": [],
   "gameProjectType": "none",
-  "projectName": "Ana Wellness",
+  "projectName": "Ana",
   "clarification_mode": "instant",
   "clarification_rounds": 0
 }

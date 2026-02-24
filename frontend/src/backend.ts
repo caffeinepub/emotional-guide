@@ -134,11 +134,13 @@ export interface backendInterface {
     addCheckIn(feelings: string, content: string): Promise<CheckInWithResponse>;
     addEmpatheticStory(story: EmpatheticStory): Promise<void>;
     addFollowUpPrompt(prompt: FollowUpPrompt): Promise<void>;
+    addGuestCheckIn(feelings: string, content: string): Promise<CheckInWithResponse>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     clearJournalEntries(): Promise<void>;
     getAllCheckIns(): Promise<Array<EmotionalCheckIn>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getGuestCheckIns(): Promise<Array<[string, string]>>;
     getJournalEntries(): Promise<Array<JournalEntry>>;
     getRandomFollowUpPrompt(): Promise<FollowUpPrompt | null>;
     getUserCheckIns(user: Principal): Promise<Array<EmotionalCheckIn>>;
@@ -204,6 +206,20 @@ export class Backend implements backendInterface {
             }
         } else {
             const result = await this.actor.addFollowUpPrompt(arg0);
+            return result;
+        }
+    }
+    async addGuestCheckIn(arg0: string, arg1: string): Promise<CheckInWithResponse> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.addGuestCheckIn(arg0, arg1);
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.addGuestCheckIn(arg0, arg1);
             return result;
         }
     }
@@ -275,6 +291,20 @@ export class Backend implements backendInterface {
         } else {
             const result = await this.actor.getCallerUserRole();
             return from_candid_UserRole_n4(this._uploadFile, this._downloadFile, result);
+        }
+    }
+    async getGuestCheckIns(): Promise<Array<[string, string]>> {
+        if (this.processError) {
+            try {
+                const result = await this.actor.getGuestCheckIns();
+                return result;
+            } catch (e) {
+                this.processError(e);
+                throw new Error("unreachable");
+            }
+        } else {
+            const result = await this.actor.getGuestCheckIns();
+            return result;
         }
     }
     async getJournalEntries(): Promise<Array<JournalEntry>> {

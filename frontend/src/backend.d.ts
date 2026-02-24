@@ -51,11 +51,13 @@ export interface backendInterface {
     addCheckIn(feelings: string, content: string): Promise<CheckInWithResponse>;
     addEmpatheticStory(story: EmpatheticStory): Promise<void>;
     addFollowUpPrompt(prompt: FollowUpPrompt): Promise<void>;
+    addGuestCheckIn(feelings: string, content: string): Promise<CheckInWithResponse>;
     assignCallerUserRole(user: Principal, role: UserRole): Promise<void>;
     clearJournalEntries(): Promise<void>;
     getAllCheckIns(): Promise<Array<EmotionalCheckIn>>;
     getCallerUserProfile(): Promise<UserProfile | null>;
     getCallerUserRole(): Promise<UserRole>;
+    getGuestCheckIns(): Promise<Array<[string, string]>>;
     getJournalEntries(): Promise<Array<JournalEntry>>;
     getRandomFollowUpPrompt(): Promise<FollowUpPrompt | null>;
     getUserCheckIns(user: Principal): Promise<Array<EmotionalCheckIn>>;

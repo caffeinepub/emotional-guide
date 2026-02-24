@@ -1,63 +1,54 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
+import { Mic, MicOff, Send, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useAddCheckIn } from '../hooks/useCheckIns';
-import { Send, Loader2, Mic, MicOff } from 'lucide-react';
-import { Alert, AlertDescription } from '@/components/ui/alert';
 import { useSpeechRecognition } from '../hooks/useSpeechRecognition';
 import VoiceRecordingIndicator from './VoiceRecordingIndicator';
 
 interface ConversationInputProps {
-  onCheckInAdded: () => void;
   isGuest: boolean;
+  onCheckInAdded?: () => void;
 }
 
-const emotions = [
-  { value: 'happy', label: 'Happy 😊', emoji: '😊' },
-  { value: 'sad', label: 'Sad 😢', emoji: '😢' },
-  { value: 'anxious', label: 'Anxious 😰', emoji: '😰' },
-  { value: 'angry', label: 'Angry 😠', emoji: '😠' },
-  { value: 'excited', label: 'Excited 🤩', emoji: '🤩' },
-  { value: 'tired', label: 'Tired 😴', emoji: '😴' },
-  { value: 'confused', label: 'Confused 😕', emoji: '😕' },
-  { value: 'grateful', label: 'Grateful 🙏', emoji: '🙏' },
-  { value: 'overwhelmed', label: 'Overwhelmed 😵', emoji: '😵' },
-  { value: 'peaceful', label: 'Peaceful 😌', emoji: '😌' },
-  { value: 'lonely', label: 'Lonely 😔', emoji: '😔' },
-  { value: 'stressed', label: 'Stressed 😓', emoji: '😓' },
+const MOOD_OPTIONS = [
+  { value: 'happy', emoji: '😊', label: 'Happy' },
+  { value: 'sad', emoji: '😢', label: 'Sad' },
+  { value: 'anxious', emoji: '😰', label: 'Anxious' },
+  { value: 'angry', emoji: '😠', label: 'Angry' },
+  { value: 'lonely', emoji: '🥺', label: 'Lonely' },
+  { value: 'stressed', emoji: '😤', label: 'Stressed' },
+  { value: 'grateful', emoji: '🙏', label: 'Grateful' },
+  { value: 'calm', emoji: '😌', label: 'Calm' },
 ];
 
-export default function ConversationInput({ onCheckInAdded, isGuest }: ConversationInputProps) {
-  const [feeling, setFeeling] = useState<string>('');
+export default function ConversationInput({ isGuest, onCheckInAdded }: ConversationInputProps) {
   const [content, setContent] = useState('');
-  const [attemptCount, setAttemptCount] = useState(0);
-  const mutation = useAddCheckIn(isGuest);
+  const [selectedMood, setSelectedMood] = useState('');
+  const [submitError, setSubmitError] = useState<string | null>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const addCheckInMutation = useAddCheckIn(isGuest);
 
   const {
     isListening,
     transcript,
     interimTranscript,
-    error: speechError,
-    isSupported,
     startListening,
     stopListening,
-    resetTranscript,
-  } = useSpeechRecognition({
-    continuous: false,
-    interimResults: true,
-  });
+    isSupported: speechSupported,
+  } = useSpeechRecognition();
 
-  // Update content when transcript changes
+  // Append finalized speech transcript to content
   useEffect(() => {
     if (transcript) {
-      setContent((prev) => {
-        const newContent = prev ? `${prev} ${transcript}` : transcript;
-        return newContent;
-      });
-      resetTranscript();
+      setContent((prev) => (prev ? `${prev} ${transcript}` : transcript));
     }
-  }, [transcript, resetTranscript]);
+  }, [transcript]);
+
+  const displayValue = isListening
+    ? content + (interimTranscript ? ` ${interimTranscript}` : '')
+    : content;
 
   const handleVoiceToggle = () => {
     if (isListening) {
@@ -67,132 +58,117 @@ export default function ConversationInput({ onCheckInAdded, isGuest }: Conversat
     }
   };
 
-  const handleFeelingChange = (value: string) => {
-    setFeeling(value);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setSubmitError(null);
 
-    if (!feeling || !content.trim()) {
+    const trimmedContent = content.trim();
+    if (!trimmedContent) {
+      setSubmitError('Please share how you are feeling before sending.');
       return;
     }
 
-    // Stop listening if still active
-    if (isListening) {
-      stopListening();
-    }
-
-    const currentAttempt = attemptCount + 1;
-    setAttemptCount(currentAttempt);
+    const feelings = selectedMood || 'general';
 
     try {
-      await mutation.mutateAsync({ feelings: feeling, content });
-      setFeeling('');
+      await addCheckInMutation.mutateAsync({ feelings, content: trimmedContent });
       setContent('');
-      onCheckInAdded();
-    } catch (error) {
-      console.error('[ConversationInput] Submit error:', error);
+      setSelectedMood('');
+      if (onCheckInAdded) onCheckInAdded();
+      setTimeout(() => textareaRef.current?.focus(), 100);
+    } catch (err) {
+      const message =
+        err instanceof Error ? err.message : 'Something went wrong. Please try again.';
+      setSubmitError(message);
     }
   };
 
-  const isDisabled = !feeling || !content.trim() || mutation.isPending;
+  const isSubmitting = addCheckInMutation.isPending;
+  const canSubmit = content.trim().length > 0 && !isSubmitting;
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
-      {mutation.error && (
-        <Alert variant="destructive">
-          <AlertDescription>
-            <div className="space-y-1">
-              <p className="font-medium">Failed to submit your check-in</p>
-              <p className="text-sm">
-                {mutation.error instanceof Error
-                  ? mutation.error.message
-                  : 'An unexpected error occurred. Please check the console for details.'}
-              </p>
-              <p className="text-xs opacity-75">
-                Attempt #{attemptCount} at {new Date().toLocaleTimeString()}
-              </p>
-            </div>
-          </AlertDescription>
-        </Alert>
-      )}
-
-      {speechError && (
-        <Alert variant="destructive">
-          <AlertDescription>
-            <p className="text-sm">{speechError}</p>
-          </AlertDescription>
-        </Alert>
-      )}
-
-      <div className="flex gap-3">
-        <Select value={feeling} onValueChange={handleFeelingChange}>
-          <SelectTrigger className="w-[200px]">
-            <SelectValue placeholder="How are you feeling?" />
-          </SelectTrigger>
-          <SelectContent>
-            {emotions.map((emotion) => (
-              <SelectItem key={emotion.value} value={emotion.value}>
-                {emotion.label}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+    <form onSubmit={handleSubmit} className="p-3 border-t border-border bg-background/95 backdrop-blur-sm">
+      {/* Mood selector */}
+      <div className="flex gap-1.5 mb-2 flex-wrap">
+        {MOOD_OPTIONS.map((mood) => (
+          <button
+            key={mood.value}
+            type="button"
+            onClick={() => setSelectedMood(selectedMood === mood.value ? '' : mood.value)}
+            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium transition-all border ${
+              selectedMood === mood.value
+                ? 'bg-primary text-primary-foreground border-primary shadow-sm'
+                : 'bg-background text-foreground/70 border-border hover:border-primary/50 hover:text-foreground'
+            }`}
+          >
+            <span>{mood.emoji}</span>
+            <span>{mood.label}</span>
+          </button>
+        ))}
       </div>
 
-      {/* Voice Recording Indicator */}
+      {/* Voice recording indicator */}
       {isListening && <VoiceRecordingIndicator isRecording={isListening} />}
 
-      {/* Talk to Ana Button */}
-      {isSupported && (
-        <Button
-          type="button"
-          onClick={handleVoiceToggle}
-          disabled={mutation.isPending}
-          className="w-full bg-gradient-to-r from-primary to-secondary hover:from-primary/90 hover:to-secondary/90 text-white font-medium py-6 rounded-2xl shadow-warm-md transition-all duration-300 hover:shadow-warm-lg"
-        >
-          <Mic className={`h-5 w-5 mr-2 ${isListening ? 'animate-pulse' : ''}`} />
-          {isListening ? 'Stop Recording' : 'Talk to Ana'}
-        </Button>
-      )}
-
-      <div className="relative">
-        <Textarea
-          value={content + (interimTranscript ? ` ${interimTranscript}` : '')}
-          onChange={(e) => setContent(e.target.value)}
-          placeholder="Tell me more about how you're feeling... or use the Talk to Ana button above"
-          className="min-h-[100px] pr-20 resize-none"
-          disabled={mutation.isPending || isListening}
-        />
-        <div className="absolute bottom-2 right-2 flex gap-2">
-          {isSupported && (
-            <Button
-              type="button"
-              size="icon"
-              variant="ghost"
-              onClick={handleVoiceToggle}
-              disabled={mutation.isPending}
-              className={`rounded-full ${isListening ? 'bg-primary/10 text-primary' : ''}`}
-              title={isListening ? 'Stop recording' : 'Start voice input'}
-            >
-              {isListening ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
-            </Button>
-          )}
-          <Button
-            type="submit"
-            size="icon"
-            disabled={isDisabled}
-            className="rounded-full"
-          >
-            {mutation.isPending ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <Send className="h-4 w-4" />
-            )}
-          </Button>
+      {/* Text input row */}
+      <div className="flex gap-2 items-end">
+        <div className="flex-1 relative">
+          <Textarea
+            ref={textareaRef}
+            value={displayValue}
+            onChange={(e) => {
+              if (!isListening) setContent(e.target.value);
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                if (canSubmit) {
+                  handleSubmit(e as unknown as React.FormEvent);
+                }
+              }
+            }}
+            placeholder="Share how you're feeling today..."
+            className="resize-none min-h-[60px] max-h-[120px] text-sm"
+            rows={2}
+            disabled={isSubmitting}
+          />
         </div>
+
+        {/* Voice button */}
+        {speechSupported && (
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={handleVoiceToggle}
+            disabled={isSubmitting}
+            className={`flex-shrink-0 ${isListening ? 'text-destructive border-destructive' : ''}`}
+            title={isListening ? 'Stop recording' : 'Start voice input'}
+          >
+            {isListening ? <MicOff className="w-4 h-4" /> : <Mic className="w-4 h-4" />}
+          </Button>
+        )}
+
+        {/* Send button */}
+        <Button
+          type="submit"
+          disabled={!canSubmit}
+          className="flex-shrink-0 gap-1.5"
+          title="Send message"
+        >
+          {isSubmitting ? (
+            <Loader2 className="w-4 h-4 animate-spin" />
+          ) : (
+            <Send className="w-4 h-4" />
+          )}
+          <span className="hidden sm:inline">{isSubmitting ? 'Sending...' : 'Send'}</span>
+        </Button>
       </div>
+
+      {/* Error message */}
+      {submitError && (
+        <p className="mt-2 text-xs text-destructive">{submitError}</p>
+      )}
     </form>
   );
 }

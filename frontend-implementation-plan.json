@@ -1,21 +1,28 @@
 {
   "kind": "implementation_plan",
   "version": "1.0",
-  "title": "Remove mood-based activity tabs from post-mood-selection view",
+  "title": "Fix chat messages visibility in conversation history",
   "requirements": [
     {
       "id": "REQ-1",
-      "summary": "Remove the tabbed panel of mood-based resources (Music, Dance, Stories, Self Care, Meditation, What to Watch, Journaling) that appears after mood submission in ConversationInput.tsx while preserving the emotional check-in input form",
+      "summary": "Fix ConversationHistory component to ensure both user messages and Ana's responses are visibly rendered with proper contrast, styling, and alignment in both light and dark themes",
       "acceptanceCriteria": [
-        "After a user selects their mood/feeling, no tab panel with Music, Dance, Stories, Self Care, Meditation, What to Watch, or Journaling options is displayed.",
-        "The emotional check-in input form still functions correctly for submitting moods.",
-        "No broken imports or unused tab content components remain referenced in ConversationInput.tsx."
+        "User-sent messages appear as right-aligned bubbles with clearly visible text and background color",
+        "Ana's response messages appear as left-aligned cards with clearly visible text and background",
+        "Messages are readable in both light and dark theme modes",
+        "No messages are hidden, transparent, or zero-opacity",
+        "Existing right-alignment behavior from version 36 is preserved"
       ],
       "file_operations": [
         {
-          "path": "frontend/src/components/ConversationInput.tsx",
+          "path": "frontend/src/components/ConversationHistory.tsx",
           "operation": "modify",
-          "description": "Remove the tabbed panel UI and all mood-based resource tab content (Music, Dance, Stories, Self Care, Meditation, What to Watch, Journaling) that appears after mood submission. Remove the tab state management (activeTab, setActiveTab) and conditional rendering logic for the tab panel. Remove imports for tab content components (MusicTabContent, DanceTabContent, StoriesTabContent, SelfCareTabContent, MeditationTabContent, WhatToWatchTabContent, JournalingTabContent). Preserve the emotional check-in input form, voice recording functionality, and the submission flow that calls addCheckIn. Ensure the component still displays the conversation input interface without the post-submission resource tabs."
+          "description": "Inspect and fix the message rendering logic to ensure both user-sent messages (right-aligned warm-coral bubbles) and Ana's responses (left-aligned frosted-glass cards) are visibly rendered. Verify that CSS classes are correctly applied and that no inline styles or conditional logic is setting opacity to 0, visibility to hidden, or transparent backgrounds. Ensure text color has sufficient contrast against bubble backgrounds in both light and dark themes. Preserve the right-alignment behavior for sent messages."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Review and fix the CSS custom properties and utility classes for chat bubbles (.sent-bubble, frosted-glass card styles) to ensure sufficient color contrast between text and backgrounds in both light and dark themes. Verify that warm-coral sent bubble styles and frosted-glass Ana response card styles have opaque backgrounds and readable text colors. Remove any rules that might inadvertently hide messages (e.g., opacity: 0, transparent backgrounds, or conflicting z-index values)."
         }
       ]
     }

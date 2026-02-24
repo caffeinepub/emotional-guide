@@ -2,10 +2,11 @@
   "kind": "feature_evidence_report",
   "features": [
     {
-      "featureId": "feature-in-conversationinput-tsx-remove-the-tabbed-panel-of-mood-based-resources-that-appears-after-the-user-submits-their-mood-feeling-this-includes-removing-the-tabs-and-their-content-for-music-dance-stories-self-care-meditation-what-to-watch-and-journaling-the-input-form-for-submitting-emotional-check-ins-should-remain-intact",
-      "featureTitle": "In ConversationInput.tsx, remove the tabbed panel of mood-based resources that appears after the user submits their mood/feeling. This includes removing the tabs and their content for: Music, Dance, Stories, Self Care, Meditation, What to Watch, and Journaling. The input form for submitting emotional check-ins should remain intact.",
+      "featureId": "feature-fix-the-conversationhistory-component-so-that-both-user-sent-messages-and-ana-s-responses-are-visibly-rendered-on-screen-ensure-message-text-bubble-backgrounds-and-text-colors-have-sufficient-contrast-against-the-page-background-so-messages-are-readable-in-both-light-and-dark-themes-verify-that-right-aligned-sent-bubbles-warm-coral-style-and-left-aligned-ana-response-cards-frosted-glass-style-defined-in-index-css-are-correctly-applied-and-not-hidden-by-transparent-backgrounds-zero-opacity-or-conflicting-css-rules",
+      "featureTitle": "Fix the ConversationHistory component so that both user-sent messages and Ana's responses are visibly rendered on screen. Ensure message text, bubble backgrounds, and text colors have sufficient contrast against the page background so messages are readable in both light and dark themes. Verify that right-aligned sent bubbles (warm-coral style) and left-aligned Ana response cards (frosted-glass style) defined in index.css are correctly applied and not hidden by transparent backgrounds, zero opacity, or conflicting CSS rules.",
       "files": [
-        "frontend/src/components/ConversationInput.tsx"
+        "frontend/src/components/ConversationHistory.tsx",
+        "frontend/src/index.css"
       ],
       "components": [
         "authorization@4.0.0",

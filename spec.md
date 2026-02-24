@@ -1,12 +1,12 @@
 # Specification
 
 ## Summary
-**Goal:** Remove the mood-based activity tab panel that appears after a user selects their mood in the conversation input view.
+**Goal:** Fix chat message visibility in the ConversationHistory component so both user messages and Ana's responses are clearly readable.
 
 **Planned changes:**
-- In `ConversationInput.tsx`, remove the tabbed panel (Music, Dance, Stories, Self Care, Meditation, What to Watch, and Journaling) that displays after the user submits their mood/feeling.
-- Clean up any unused imports or references to the removed tab content components in `ConversationInput.tsx`.
-- Leave the emotional check-in input form and mood submission flow fully intact.
-- Leave the bottom navigation tabs (Music, Journal, Meditation, Good Vibes, Watch This) unchanged.
+- Ensure user-sent message bubbles are right-aligned with visible background color and text (warm-coral style)
+- Ensure Ana's response messages are left-aligned with visible background and text (frosted-glass style)
+- Fix any CSS issues causing transparent backgrounds, zero opacity, or conflicting rules that hide messages
+- Verify messages are readable in both light and dark themes
 
-**User-visible outcome:** After selecting their mood, users no longer see the activity tab panel. The check-in input form continues to work as before.
+**User-visible outcome:** Users can see and read all chat messages — both their own sent messages and Ana's responses — displayed as properly styled, visible bubbles in the conversation history.

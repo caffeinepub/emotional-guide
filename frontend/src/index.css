@@ -89,7 +89,289 @@
     }
 }
 
-/* Ana's Room Background - Split Layout */
+/* ============================================================
+   Sent (user) message bubble — right-aligned, solid warm coral
+   Fully opaque so text is always legible over the translucent
+   frosted-glass chat box background.
+   ============================================================ */
+
+/* The bubble itself */
+.sent-bubble {
+  background-color: oklch(0.58 0.20 22);
+  border: 1px solid oklch(0.54 0.21 20);
+}
+
+.dark .sent-bubble {
+  background-color: oklch(0.62 0.18 28);
+  border: 1px solid oklch(0.66 0.17 30);
+}
+
+/* Main message text — crisp white, always opaque */
+.sent-bubble-text {
+  color: #ffffff;
+  opacity: 1;
+}
+
+/* Mood tag inside the bubble — slightly dimmed white */
+.sent-bubble-tag {
+  color: rgba(255, 255, 255, 0.88);
+  opacity: 1;
+}
+
+/* "You" label above the bubble */
+.sent-message-label {
+  color: oklch(0.55 0.20 22);
+}
+
+.dark .sent-message-label {
+  color: oklch(0.72 0.16 32);
+}
+
+/* Timestamp below the bubble */
+.sent-bubble-time {
+  color: oklch(0.50 0.05 35);
+}
+
+.dark .sent-bubble-time {
+  color: oklch(0.65 0.04 40);
+}
+
+/* ============================================================
+   Ana's response card — solid opaque background for readability
+   over the frosted-glass chat bubble container
+   ============================================================ */
+
+.ana-response-card {
+  background-color: oklch(0.97 0.012 48);
+  border: 1px solid oklch(0.88 0.025 40);
+}
+
+.dark .ana-response-card {
+  background-color: oklch(0.28 0.025 32);
+  border: 1px solid oklch(0.35 0.025 35);
+}
+
+.ana-name-label {
+  color: oklch(0.55 0.18 22);
+}
+
+.dark .ana-name-label {
+  color: oklch(0.72 0.15 30);
+}
+
+.ana-response-text {
+  color: oklch(0.22 0.02 30);
+}
+
+.dark .ana-response-text {
+  color: oklch(0.92 0.01 45);
+}
+
+.ana-section-label {
+  color: oklch(0.45 0.03 35);
+}
+
+.dark .ana-section-label {
+  color: oklch(0.68 0.03 40);
+}
+
+.ana-option-text {
+  color: oklch(0.35 0.025 32);
+}
+
+.dark .ana-option-text {
+  color: oklch(0.82 0.015 42);
+}
+
+.ana-bullet {
+  color: oklch(0.58 0.18 22);
+}
+
+.dark .ana-bullet {
+  color: oklch(0.72 0.15 30);
+}
+
+.ana-followup-text {
+  color: oklch(0.42 0.03 33);
+}
+
+.dark .ana-followup-text {
+  color: oklch(0.72 0.02 40);
+}
+
+.ana-divider {
+  border-color: oklch(0.85 0.02 40);
+}
+
+.dark .ana-divider {
+  border-color: oklch(0.38 0.025 35);
+}
+
+.ana-avatar-bg {
+  background-color: oklch(0.90 0.05 50);
+}
+
+.dark .ana-avatar-bg {
+  background-color: oklch(0.35 0.04 40);
+}
+
+/* Empty state */
+.chat-empty-icon-bg {
+  background-color: oklch(0.92 0.04 45);
+}
+
+.dark .chat-empty-icon-bg {
+  background-color: oklch(0.30 0.03 35);
+}
+
+.chat-empty-title {
+  color: oklch(0.30 0.02 30);
+}
+
+.dark .chat-empty-title {
+  color: oklch(0.88 0.01 45);
+}
+
+.chat-empty-subtitle {
+  color: oklch(0.48 0.025 33);
+}
+
+.dark .chat-empty-subtitle {
+  color: oklch(0.68 0.02 40);
+}
+
+/* Legacy aliases kept for backward compatibility */
+.user-message-bubble {
+  background-color: oklch(0.58 0.20 22);
+}
+
+.dark .user-message-bubble {
+  background-color: oklch(0.62 0.18 28);
+}
+
+.user-message-text {
+  color: #ffffff;
+  opacity: 1;
+}
+
+.user-message-tag {
+  color: rgba(255, 255, 255, 0.88);
+  opacity: 1;
+}
+
+/* ============================================================
+   Chat Page — Full-bleed background + floating bubble layout
+   ============================================================ */
+
+/* Root wrapper: fills the entire parent (Layout's <main>) */
+.chat-page-root {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  /* Align content to the right so the left side (girl) stays visible */
+  justify-content: flex-end;
+}
+
+/* Background image layer — covers the full viewport */
+.chat-bg-image {
+  position: absolute;
+  inset: 0;
+  background-image: url('/assets/generated/ana-room-background.dim_1920x1080.png');
+  background-size: cover;
+  /* Anchor to left so the girl on the left side is always visible */
+  background-position: left center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* Translucent frosted overlay on top of the background image — reduced opacity to reveal the girl */
+.chat-bg-overlay {
+  position: absolute;
+  inset: 0;
+  /* Reduced from 0.35 to 0.12 so the background subject is clearly visible */
+  background: oklch(0.98 0.015 45 / 0.12);
+  backdrop-filter: blur(1px);
+  -webkit-backdrop-filter: blur(1px);
+  z-index: 1;
+}
+
+.dark .chat-bg-overlay {
+  background: oklch(0.15 0.02 30 / 0.20);
+}
+
+/* Wrapper that positions the bubble toward the right side of the viewport */
+.chat-bubble-wrapper {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: stretch;
+  /* Push bubble to the right, leaving the left side open for the background */
+  justify-content: flex-end;
+  padding: 1.25rem;
+  box-sizing: border-box;
+}
+
+/* The floating bubble itself — more opaque for readability */
+.chat-bubble {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 560px;
+  height: 100%;
+  min-height: 0;
+  border-radius: 2rem;
+  overflow: hidden;
+
+  /* More opaque background so message text is always readable */
+  background: oklch(0.99 0.01 50 / 0.82);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+
+  /* Elevation */
+  box-shadow:
+    0 8px 32px oklch(0.25 0.02 30 / 0.14),
+    0 2px 8px oklch(0.25 0.02 30 / 0.08),
+    inset 0 1px 0 oklch(1 0 0 / 0.50);
+
+  /* Subtle border to reinforce the glass edge */
+  border: 1px solid oklch(1 0 0 / 0.45);
+}
+
+.dark .chat-bubble {
+  background: oklch(0.22 0.02 30 / 0.88);
+  box-shadow:
+    0 8px 40px oklch(0.10 0.02 30 / 0.40),
+    0 2px 10px oklch(0.10 0.02 30 / 0.20),
+    inset 0 1px 0 oklch(1 0 0 / 0.06);
+  border: 1px solid oklch(1 0 0 / 0.12);
+}
+
+/* On mobile, reduce padding so the bubble fills more of the screen */
+@media (max-width: 640px) {
+  .chat-page-root {
+    justify-content: center;
+  }
+
+  .chat-bubble-wrapper {
+    padding: 0.5rem;
+    justify-content: center;
+  }
+
+  .chat-bubble {
+    border-radius: 1.25rem;
+    max-width: 100%;
+  }
+}
+
+/* ============================================================
+   Legacy background classes (used by other pages)
+   ============================================================ */
+
 .ana-room-background-split {
   position: fixed;
   top: 0;
@@ -110,7 +392,6 @@
   filter: brightness(0.7);
 }
 
-/* Chat Container - Right Side */
 .chat-container {
   position: relative;
   margin-left: auto;
@@ -126,29 +407,6 @@
   background: linear-gradient(to left, oklch(var(--background) / 0.98), oklch(var(--background) / 0.90));
 }
 
-/* Responsive adjustments */
-@media (max-width: 1024px) {
-  .chat-container {
-    max-width: 60%;
-  }
-}
-
-@media (max-width: 768px) {
-  .chat-container {
-    max-width: 100%;
-    background: oklch(var(--background) / 0.95);
-  }
-  
-  .ana-room-background-split {
-    opacity: 0.3;
-  }
-  
-  .dark .ana-room-background-split {
-    opacity: 0.2;
-  }
-}
-
-/* Legacy background class for other pages */
 .ana-room-background {
   position: fixed;
   top: 0;
@@ -169,7 +427,10 @@
   filter: brightness(0.7);
 }
 
-/* Flip Card Styles */
+/* ============================================================
+   Flip Card Styles
+   ============================================================ */
+
 .flip-card-container {
   perspective: 1000px;
   width: 100%;
@@ -204,7 +465,10 @@
   transform: rotateY(180deg);
 }
 
-/* Ensure tabs are visible and properly styled */
+/* ============================================================
+   Ensure tabs are visible and properly styled
+   ============================================================ */
+
 [role="tablist"] {
   display: grid !important;
   visibility: visible !important;

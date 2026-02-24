@@ -9,8 +9,7 @@ import AccessControl "authorization/access-control";
 import MixinAuthorization "authorization/MixinAuthorization";
 import Int "mo:core/Int";
 import Nat "mo:core/Nat";
-
-
+import Array "mo:core/Array";
 
 actor {
   type UserProfile = {
@@ -54,6 +53,10 @@ actor {
     response : SupportiveResponse;
   };
 
+  // In-memory cache for guest (anonymous) check-ins
+  var guestCheckIns : List.List<(Text, Text)> = List.empty<(Text, Text)>();
+  let guestCheckInLimit = 10;
+
   let accessControlState = AccessControl.initState();
   include MixinAuthorization(accessControlState);
 
@@ -85,16 +88,23 @@ actor {
   };
 
   public query ({ caller }) func hasCheckIns(user : Principal) : async Bool {
+    if (caller != user and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Can only view your own check-in data");
+    };
     userCheckIns.containsKey(user);
   };
 
   public query ({ caller }) func getUserCheckIns(user : Principal) : async [EmotionalCheckIn] {
+    if (caller != user and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Unauthorized: Can only view your own check-ins");
+    };
     switch (userCheckIns.get(user)) {
       case (?checkIns) { checkIns.toArray() };
       case (null) { [] };
     };
   };
 
+  // Add a check-in for authenticated users and get a supportive response
   public shared ({ caller }) func addCheckIn(feelings : Text, content : Text) : async CheckInWithResponse {
     if (not (AccessControl.hasPermission(accessControlState, caller, #user))) {
       Runtime.trap("Unauthorized: Only users can add check-ins");
@@ -131,6 +141,50 @@ actor {
       case (?checkIns) { checkIns.toArray() };
       case (null) { [] };
     };
+  };
+
+  // Handle check-in for anonymous (guest) users.
+  // This can only store check-ins temporarily and returns a supportive response.
+  // Anonymous check-ins are stored in-memory and not persisted across upgrades.
+  public shared ({ caller }) func addGuestCheckIn(feelings : Text, content : Text) : async CheckInWithResponse {
+    // Only allow anonymous callers
+    if (caller.toText() != "2vxsx-fae" and not AccessControl.isAdmin(accessControlState, caller)) {
+      Runtime.trap("Only anonymous users or admins can use this endpoint");
+    };
+
+    let newCheckIn : EmotionalCheckIn = {
+      timestamp = Time.now();
+      feelings;
+      content;
+    };
+
+    // Maintain a sliding window of recent check-ins
+    let currentCheckIns = guestCheckIns.toArray();
+    let limitedCheckIns = if (currentCheckIns.size() >= guestCheckInLimit) {
+      Array.tabulate(
+        guestCheckInLimit - 1,
+        func(i) { currentCheckIns[i] },
+      );
+    } else {
+      currentCheckIns;
+    };
+
+    guestCheckIns.clear();
+    for (entry in limitedCheckIns.values()) {
+      guestCheckIns.add(entry);
+    };
+    guestCheckIns.add((feelings, content));
+
+    let supportiveResponse = generateSupportiveResponse(feelings);
+
+    {
+      checkIn = newCheckIn;
+      response = supportiveResponse;
+    };
+  };
+
+  public query ({} : {}) func getGuestCheckIns() : async [(Text, Text)] {
+    guestCheckIns.toArray();
   };
 
   func generateSupportiveResponse(feelings : Text) : SupportiveResponse {

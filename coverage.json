@@ -1,7 +1,7 @@
 {
   "kind": "coverage_report",
   "version": "1.0",
-  "generatedAt": "2026-02-24T12:33:15.462Z",
+  "generatedAt": "2026-02-24T14:19:33.815Z",
   "sources": {
     "buildRequest": true,
     "implementationPlan": true
@@ -12,13 +12,15 @@
     "items": [
       {
         "id": "REQ-1",
-        "summary": "In ConversationInput.tsx, remove the tabbed panel of mood-based resources that appears after the user submits their mood/feeling. This includes removing the tabs and their content for: Music, Dance, Stories, Self Care, Meditation, What to Watch, and Journaling. The input form for submitting emotional check-ins should remain intact.",
+        "summary": "Fix the ConversationHistory component so that both user-sent messages and Ana's responses are visibly rendered on screen. Ensure message text, bubble backgrounds, and text colors have sufficient contrast against the page background so messages are readable in both light and dark themes. Verify that right-aligned sent bubbles (warm-coral style) and left-aligned Ana response cards (frosted-glass style) defined in index.css are correctly applied and not hidden by transparent backgrounds, zero opacity, or conflicting CSS rules.",
         "status": "implemented",
         "plannedFiles": [
-          "frontend/src/components/ConversationInput.tsx"
+          "frontend/src/components/ConversationHistory.tsx",
+          "frontend/src/index.css"
         ],
         "matchedFiles": [
-          "frontend/src/components/ConversationInput.tsx"
+          "frontend/src/components/ConversationHistory.tsx",
+          "frontend/src/index.css"
         ]
       }
     ]
@@ -28,7 +30,8 @@
     "feature_evidence.json",
     "frontend-file-summaries.txt",
     "frontend-implementation-plan.json",
-    "frontend/src/components/ConversationInput.tsx",
+    "frontend/src/components/ConversationHistory.tsx",
+    "frontend/src/index.css",
     "project_state.json",
     "scratch/component-selection.json",
     "spec.md",

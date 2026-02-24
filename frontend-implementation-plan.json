@@ -1,0 +1,69 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Fix missing tabs in deployed ConversationInput component",
+  "requirements": [
+    {
+      "id": "REQ-62",
+      "summary": "Debug and fix the tabbed resource interface in ConversationInput component to ensure all 7 tabs (Music, Dance, Stories, Self Care, Meditation, What to Watch, Journaling) are properly rendered and visible in the deployed application",
+      "acceptanceCriteria": [
+        "All 7 tabs (Music, Dance, Stories, Self Care, Meditation, What to Watch, Journaling) are visible in the ConversationInput component",
+        "Tab navigation works correctly allowing users to switch between different resource categories",
+        "Each tab displays its corresponding content component (MusicTabContent, DanceTabContent, etc.)",
+        "Tabs remain visible and functional after mood selection in the 'How are you feeling?' dropdown",
+        "Tab styling and layout match the intended design with proper spacing and visual hierarchy"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ConversationInput.tsx",
+          "operation": "modify",
+          "description": "Review and fix the tab rendering logic in ConversationInput component. Ensure the tab container and all 7 tab buttons (Music, Dance, Stories, Self Care, Meditation, What to Watch, Journaling) are rendered with proper visibility. Verify that no conditional logic is preventing tabs from displaying. Check that the activeTab state is properly initialized and that tab buttons are wired to update this state. Ensure tab content components are conditionally rendered based on activeTab state. Add console logging to track component mounting, tab state initialization, and tab click handlers to aid debugging."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Review global styles to ensure no CSS rules are inadvertently hiding the tab interface. Check for any display:none, visibility:hidden, or opacity:0 rules that might affect tab containers or buttons. Verify z-index stacking context does not place tabs behind other elements. Ensure the tab interface has appropriate positioning and layout styles for visibility."
+        }
+      ]
+    },
+    {
+      "id": "REQ-63",
+      "summary": "Verify that the ConversationInput component's tab container and tab buttons have correct CSS classes and are not being hidden by display:none, visibility:hidden, or z-index issues",
+      "acceptanceCriteria": [
+        "Tab container element is rendered in the DOM with visible display properties",
+        "Tab button elements are present and clickable in the UI",
+        "No CSS rules are inadvertently hiding the tab interface",
+        "Z-index stacking context does not place tabs behind other elements"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ConversationInput.tsx",
+          "operation": "modify",
+          "description": "Inspect the JSX structure of the tab interface to ensure tab container and button elements use correct Tailwind CSS classes with proper display properties (flex, grid, block, etc.). Remove any inline styles or classes that set display:none or visibility:hidden on tabs. Verify z-index values allow tabs to appear above other interface elements. Ensure tab buttons have hover states and pointer cursor for interactivity. Add aria-selected and role attributes for accessibility and debugging."
+        },
+        {
+          "path": "frontend/tailwind.config.js",
+          "operation": "modify",
+          "description": "Review Tailwind configuration to ensure no custom utilities or layer overrides are hiding tab elements. Verify that all required Tailwind classes for tab styling (border, background, text colors, spacing) are available and not purged. Check that responsive breakpoints don't hide tabs on certain screen sizes."
+        }
+      ]
+    },
+    {
+      "id": "REQ-64",
+      "summary": "Add browser console logging to ConversationInput component to track tab state, rendering lifecycle, and any errors that might prevent tabs from displaying",
+      "acceptanceCriteria": [
+        "Console logs confirm tab component is mounting and rendering",
+        "Active tab state changes are logged when users interact with tabs",
+        "Any errors or warnings related to tab rendering are captured and logged",
+        "Logs help identify whether the issue is conditional rendering, state management, or CSS-related"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ConversationInput.tsx",
+          "operation": "modify",
+          "description": "Add comprehensive console.log statements throughout ConversationInput component to track: component mount/unmount via useEffect, initial activeTab state value, tab button click events with the tab name being activated, conditional rendering branches that might hide tabs, and any errors caught in error boundaries. Log the full list of tabs being rendered and their visibility state. Include timestamps in logs to track rendering sequence. Add a useEffect that logs when mood selection changes to verify tabs remain visible after mood interactions."
+        }
+      ]
+    }
+  ]
+}

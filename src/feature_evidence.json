@@ -1,0 +1,142 @@
+{
+  "kind": "feature_evidence_report",
+  "features": [
+    {
+      "featureId": "feature-preserve-the-how-are-you-feeling-mood-dropdown-in-conversationinput-component-exactly-as-it-currently-exists-do-not-remove-or-modify-this-dropdown-functionality",
+      "featureTitle": "Preserve the 'How are you feeling?' mood dropdown in ConversationInput component exactly as it currently exists - do not remove or modify this dropdown functionality",
+      "files": [
+        "frontend/src/components/ConversationInput.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-42"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-convert-the-food-music-stories-self-care-and-videos-resource-links-to-display-as-clickable-image-cards-instead-of-text-links-in-the-cloud-shape-layout",
+      "featureTitle": "Convert the food, music, stories, self-care, and videos resource links to display as clickable image cards instead of text links in the cloud shape layout",
+      "files": [
+        "frontend/src/components/ConversationInput.tsx",
+        "frontend/src/components/ResourceCard.tsx"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-43"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-implement-flip-animation-for-resource-image-cards-so-that-when-clicked-the-card-flips-to-reveal-the-detailed-content-links-or-descriptions-on-the-back-side",
+      "featureTitle": "Implement flip animation for resource image cards so that when clicked, the card flips to reveal the detailed content (links or descriptions) on the back side",
+      "files": [
+        "frontend/src/components/ResourceCard.tsx",
+        "frontend/src/index.css"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-44"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-music-recommendations-in-moodresourcelinks-ts-to-include-popular-music-and-pop-artists-alongside-current-recommendations",
+      "featureTitle": "Update music recommendations in moodResourceLinks.ts to include popular music and pop artists alongside current recommendations",
+      "files": [
+        "frontend/src/utils/moodResourceLinks.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-45"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-update-video-recommendations-in-moodresourcelinks-ts-to-include-popular-music-videos-and-pop-artist-content-alongside-current-video-recommendations",
+      "featureTitle": "Update video recommendations in moodResourceLinks.ts to include popular music videos and pop artist content alongside current video recommendations",
+      "files": [
+        "frontend/src/utils/moodResourceLinks.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-46"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-debug-and-fix-the-voice-conversation-functionality-so-ana-verbally-responds-to-user-check-ins-using-the-web-speech-synthesis-api-as-implemented-in-usespeechsynthesis-ts-and-responsedisplay-tsx",
+      "featureTitle": "Debug and fix the voice conversation functionality so Ana verbally responds to user check-ins using the Web Speech Synthesis API as implemented in useSpeechSynthesis.ts and ResponseDisplay.tsx",
+      "files": [
+        "frontend/src/components/ResponseDisplay.tsx",
+        "frontend/src/hooks/useSpeechSynthesis.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-47"
+      ],
+      "confidence": "high"
+    },
+    {
+      "featureId": "feature-verify-responsedisplay-tsx-properly-triggers-speech-synthesis-when-receiving-new-responses-and-add-detailed-error-logging-to-capture-any-speech-synthesis-initialization-or-playback-failures",
+      "featureTitle": "Verify ResponseDisplay.tsx properly triggers speech synthesis when receiving new responses and add detailed error logging to capture any speech synthesis initialization or playback failures",
+      "files": [
+        "frontend/src/components/ResponseDisplay.tsx",
+        "frontend/src/hooks/useSpeechSynthesis.ts"
+      ],
+      "components": [
+        "authorization@4.0.0",
+        "core-infrastructure@1.0.2",
+        "shadcn-ui@1.0.0",
+        "build-template-react@1.0.0",
+        "initial-app@1.0.0",
+        "github-export-icp-cli@1.0.0"
+      ],
+      "testIds": [
+        "REQ-48"
+      ],
+      "confidence": "high"
+    }
+  ]
+}

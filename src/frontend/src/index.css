@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --radius: 1rem;
+        /* Warm, soft peach and cream tones for light mode */
+        --background: 0.98 0.015 45;
+        --foreground: 0.25 0.02 30;
+        --card: 1 0.01 50;
+        --card-foreground: 0.25 0.02 30;
+        --popover: 1 0.01 50;
+        --popover-foreground: 0.25 0.02 30;
+        /* Warm coral primary */
+        --primary: 0.65 0.18 25;
+        --primary-foreground: 0.99 0.01 50;
+        /* Soft peach secondary */
+        --secondary: 0.95 0.03 40;
+        --secondary-foreground: 0.35 0.02 30;
+        /* Light warm muted */
+        --muted: 0.96 0.02 45;
+        --muted-foreground: 0.55 0.02 35;
+        /* Soft accent */
+        --accent: 0.92 0.04 50;
+        --accent-foreground: 0.35 0.02 30;
+        /* Gentle destructive */
+        --destructive: 0.60 0.20 15;
+        --destructive-foreground: 0.99 0.01 50;
+        /* Subtle borders */
+        --border: 0.90 0.02 45;
+        --input: 0.90 0.02 45;
+        --ring: 0.65 0.18 25;
+        --chart-1: 0.70 0.15 30;
+        --chart-2: 0.65 0.12 180;
+        --chart-3: 0.60 0.10 220;
+        --chart-4: 0.75 0.14 60;
+        --chart-5: 0.68 0.16 350;
+    }
+
+    .dark {
+        /* Warm, cozy dark tones */
+        --background: 0.20 0.02 30;
+        --foreground: 0.95 0.01 45;
+        --card: 0.25 0.02 30;
+        --card-foreground: 0.95 0.01 45;
+        --popover: 0.22 0.02 30;
+        --popover-foreground: 0.95 0.01 45;
+        /* Warm peachy primary for dark */
+        --primary: 0.75 0.15 35;
+        --primary-foreground: 0.20 0.02 30;
+        /* Muted warm secondary */
+        --secondary: 0.30 0.02 35;
+        --secondary-foreground: 0.95 0.01 45;
+        /* Dark muted */
+        --muted: 0.28 0.02 35;
+        --muted-foreground: 0.65 0.02 40;
+        /* Dark accent */
+        --accent: 0.35 0.03 40;
+        --accent-foreground: 0.95 0.01 45;
+        /* Gentle destructive dark */
+        --destructive: 0.65 0.18 15;
+        --destructive-foreground: 0.20 0.02 30;
+        /* Subtle dark borders */
+        --border: 0.30 0.02 35;
+        --input: 0.32 0.02 35;
+        --ring: 0.70 0.15 35;
+        --chart-1: 0.60 0.20 340;
+        --chart-2: 0.70 0.15 180;
+        --chart-3: 0.75 0.14 60;
+        --chart-4: 0.65 0.22 300;
+        --chart-5: 0.68 0.20 20;
+    }
+
+    * {
+        @apply border-border;
+    }
+    
+    body {
+        @apply bg-background text-foreground;
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+    }
+}
+
+/* Flip Card Styles */
+.flip-card-container {
+  perspective: 1000px;
+  width: 100%;
+  height: 200px;
+}
+
+.flip-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+}
+
+.flip-card-inner.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+.flip-card-front {
+  transform: rotateY(0deg);
+}
+
+.flip-card-back {
+  transform: rotateY(180deg);
+}

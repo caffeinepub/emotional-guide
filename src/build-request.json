@@ -1,0 +1,161 @@
+{
+  "kind": "build_request",
+  "title": "Preserve mood dropdown and convert resource tabs to flip-card images with pop artist content",
+  "projectName": "Ana",
+  "priority": "high",
+  "requirements": [
+    {
+      "id": "REQ-42",
+      "text": "Preserve the 'How are you feeling?' mood dropdown in ConversationInput component exactly as it currently exists - do not remove or modify this dropdown functionality",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Dont remove how you are feeling drop down"
+        ]
+      },
+      "acceptanceCriteria": [
+        "The mood selection dropdown remains visible and functional in ConversationInput",
+        "Users can select their emotional state from the dropdown before submitting check-ins",
+        "The dropdown UI and behavior is unchanged from the current implementation"
+      ]
+    },
+    {
+      "id": "REQ-43",
+      "text": "Convert the food, music, stories, self-care, and videos resource links to display as clickable image cards instead of text links in the cloud shape layout",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Convert rest of the tabs as images to be clicked"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Each resource category (food, music, stories, self-care, videos) displays as an image card",
+        "The images maintain the cloud shape layout arrangement",
+        "Cards are visually distinct and clearly indicate they are clickable"
+      ]
+    },
+    {
+      "id": "REQ-44",
+      "text": "Implement flip animation for resource image cards so that when clicked, the card flips to reveal the detailed content (links or descriptions) on the back side",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Once clicked, show the contents there by flipping the image"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Clicking a resource card triggers a smooth flip animation",
+        "The back of the card displays the relevant links or content for that resource category",
+        "Users can flip the card back to return to the front image view",
+        "The flip animation is smooth and does not cause layout shifts"
+      ]
+    },
+    {
+      "id": "REQ-45",
+      "text": "Update music recommendations in moodResourceLinks.ts to include popular music and pop artists alongside current recommendations",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "For music and videos, use pop artists as well"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Music links include references to popular pop artists",
+        "Recommendations span multiple moods (sad, lonely, stressed, etc.)",
+        "Links point to accessible music content featuring pop artists"
+      ]
+    },
+    {
+      "id": "REQ-46",
+      "text": "Update video recommendations in moodResourceLinks.ts to include popular music videos and pop artist content alongside current video recommendations",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "For music and videos, use pop artists as well"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Video links include music videos from popular pop artists",
+        "Recommendations are mood-appropriate and span different emotional states",
+        "Links point to accessible video content on platforms like YouTube"
+      ]
+    },
+    {
+      "id": "REQ-47",
+      "text": "Debug and fix the voice conversation functionality so Ana verbally responds to user check-ins using the Web Speech Synthesis API as implemented in useSpeechSynthesis.ts and ResponseDisplay.tsx",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Ana is still not talking or conversing with the user"
+        ]
+      },
+      "acceptanceCriteria": [
+        "When a user submits a check-in, Ana's text response is automatically spoken aloud using speech synthesis",
+        "Voice output works for both text and voice input submissions",
+        "Speech synthesis properly initializes and plays without errors",
+        "Users can hear Ana's voice responses in both guest and authenticated modes"
+      ]
+    },
+    {
+      "id": "REQ-48",
+      "text": "Verify ResponseDisplay.tsx properly triggers speech synthesis when receiving new responses and add detailed error logging to capture any speech synthesis initialization or playback failures",
+      "target": "frontend",
+      "source": {
+        "messageIds": [
+          "msg-5"
+        ],
+        "quotes": [
+          "Ana is still not talking or conversing with the user"
+        ]
+      },
+      "acceptanceCriteria": [
+        "Console logs show when speech synthesis is triggered for each response",
+        "Errors related to speech synthesis initialization, voice loading, or playback are captured and logged",
+        "The speak function from useSpeechSynthesis is called with the correct response text",
+        "Browser compatibility issues with speech synthesis are detected and logged"
+      ]
+    }
+  ],
+  "constraints": [
+    "Do not modify or remove the existing mood dropdown selector in ConversationInput",
+    "Maintain the existing cloud shape layout for resource cards",
+    "Preserve all existing authentication and guest mode functionality",
+    "Keep the existing useSpeechSynthesis hook implementation",
+    "Do not change backend response generation logic"
+  ],
+  "nonGoals": [
+    "Creating new mood categories or emotional states",
+    "Modifying the chat history display format",
+    "Changing the backend response generation system",
+    "Altering the authentication flow or Internet Identity integration",
+    "Adding new resource categories beyond the existing five (food, music, stories, self-care, videos)"
+  ],
+  "imageRequirements": {
+    "required": [
+      "Colorful food plate illustration for mood-based recipe recommendations icon (food-mood-card.dim_200x200.png)",
+      "Music notes and headphones illustration for mood-based music recommendations icon (music-mood-card.dim_200x200.png)",
+      "Open book with stars illustration for mood-based story recommendations icon (stories-mood-card.dim_200x200.png)",
+      "Spa and wellness items illustration for mood-based self-care routines icon (selfcare-mood-card.dim_200x200.png)",
+      "Play button and screen illustration for mood-based video recommendations icon (videos-mood-card.dim_200x200.png)"
+    ],
+    "edits": []
+  }
+}

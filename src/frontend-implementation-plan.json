@@ -1,0 +1,142 @@
+{
+  "kind": "implementation_plan",
+  "version": "1.0",
+  "title": "Preserve mood dropdown and convert resource tabs to flip-card images with pop artist content",
+  "requirements": [
+    {
+      "id": "REQ-42",
+      "summary": "Preserve the 'How are you feeling?' mood dropdown in ConversationInput component exactly as it currently exists",
+      "acceptanceCriteria": [
+        "The mood selection dropdown remains visible and functional in ConversationInput",
+        "Users can select their emotional state from the dropdown before submitting check-ins",
+        "The dropdown UI and behavior is unchanged from the current implementation"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ConversationInput.tsx",
+          "operation": "modify",
+          "description": "Review the existing mood dropdown implementation to ensure it remains intact throughout other modifications. Document the current structure of the mood selection UI for reference during resource card conversion work."
+        }
+      ]
+    },
+    {
+      "id": "REQ-43",
+      "summary": "Convert the food, music, stories, self-care, and videos resource links to display as clickable image cards instead of text links in the cloud shape layout",
+      "acceptanceCriteria": [
+        "Each resource category (food, music, stories, self-care, videos) displays as an image card",
+        "The images maintain the cloud shape layout arrangement",
+        "Cards are visually distinct and clearly indicate they are clickable"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ResourceCard.tsx",
+          "operation": "create",
+          "description": "Create a new ResourceCard component that displays resource categories as clickable image cards with flip animation support. The component should accept props for category name, front image (using generated assets: frontend/public/assets/generated/food-mood-card.dim_200x200.png, frontend/public/assets/generated/music-mood-card.dim_200x200.png, frontend/public/assets/generated/stories-mood-card.dim_200x200.png, frontend/public/assets/generated/selfcare-mood-card.dim_200x200.png, frontend/public/assets/generated/videos-mood-card.dim_200x200.png), back content (links array), and flip state. Implement CSS-based 3D flip animation using transform perspective and rotateY. Include hover effects to indicate clickability."
+        },
+        {
+          "path": "frontend/src/components/ConversationInput.tsx",
+          "operation": "modify",
+          "description": "Replace the existing resource link buttons with ResourceCard components arranged in the cloud shape layout. Map each resource category (food, music, stories, self-care, videos) to its corresponding generated image asset and links from moodResourceLinks. Maintain the cloud layout positioning while swapping text links for image cards. Ensure the mood dropdown remains untouched above the resource cards section."
+        }
+      ]
+    },
+    {
+      "id": "REQ-44",
+      "summary": "Implement flip animation for resource image cards so that when clicked, the card flips to reveal the detailed content on the back side",
+      "acceptanceCriteria": [
+        "Clicking a resource card triggers a smooth flip animation",
+        "The back of the card displays the relevant links or content for that resource category",
+        "Users can flip the card back to return to the front image view",
+        "The flip animation is smooth and does not cause layout shifts"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ResourceCard.tsx",
+          "operation": "modify",
+          "description": "Implement click handler to toggle flip state and CSS classes for 3D flip animation. Add a card inner container with front and back faces using absolute positioning and backface-visibility:hidden. The front face displays the category image, the back face displays the resource links as clickable list items. Include smooth transition timing (e.g., 0.6s) and transform-style:preserve-3d on the card container. Add a close/back button on the flipped side to return to front view."
+        },
+        {
+          "path": "frontend/src/index.css",
+          "operation": "modify",
+          "description": "Add CSS classes for flip card animation including .flip-card, .flip-card-inner, .flip-card-front, .flip-card-back with appropriate transform, transition, and backface-visibility properties. Define .flipped state class that rotates the inner container 180deg on Y-axis. Ensure layout stability during flip to prevent content shifts."
+        }
+      ]
+    },
+    {
+      "id": "REQ-45",
+      "summary": "Update music recommendations in moodResourceLinks.ts to include popular music and pop artists alongside current recommendations",
+      "acceptanceCriteria": [
+        "Music links include references to popular pop artists",
+        "Recommendations span multiple moods (sad, lonely, stressed, etc.)",
+        "Links point to accessible music content featuring pop artists"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/moodResourceLinks.ts",
+          "operation": "modify",
+          "description": "Expand the music section of moodResourceLinks to include Spotify/YouTube Music playlists or artist pages for popular pop artists appropriate to each mood state. For sad mood, add artists like Billie Eilish, Olivia Rodrigo; for happy mood, add Lizzo, Dua Lipa; for stressed mood, add calming pop like Ed Sheeran acoustic sets. Ensure links are publicly accessible and organized by emotional state."
+        }
+      ]
+    },
+    {
+      "id": "REQ-46",
+      "summary": "Update video recommendations in moodResourceLinks.ts to include popular music videos and pop artist content alongside current video recommendations",
+      "acceptanceCriteria": [
+        "Video links include music videos from popular pop artists",
+        "Recommendations are mood-appropriate and span different emotional states",
+        "Links point to accessible video content on platforms like YouTube"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/utils/moodResourceLinks.ts",
+          "operation": "modify",
+          "description": "Add a videos section to moodResourceLinks mapping moods to YouTube music videos from popular pop artists. Include mood-appropriate content: uplifting pop videos for sad moods (e.g., Taylor Swift 'Shake It Off'), empowering anthems for stressed moods (e.g., Katy Perry 'Roar'), relaxing acoustic sessions for anxious moods. Ensure all YouTube links are public and valid."
+        }
+      ]
+    },
+    {
+      "id": "REQ-47",
+      "summary": "Debug and fix the voice conversation functionality so Ana verbally responds to user check-ins using the Web Speech Synthesis API",
+      "acceptanceCriteria": [
+        "When a user submits a check-in, Ana's text response is automatically spoken aloud using speech synthesis",
+        "Voice output works for both text and voice input submissions",
+        "Speech synthesis properly initializes and plays without errors",
+        "Users can hear Ana's voice responses in both guest and authenticated modes"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ResponseDisplay.tsx",
+          "operation": "modify",
+          "description": "Review and enhance the speech synthesis trigger in the useEffect that fires when response.mainMessage changes. Add comprehensive error logging before calling speak() to capture initialization failures. Verify that useSpeechSynthesis is being called with the correct text and that the speaking state is properly managed. Add console logs to trace: when useEffect fires, what text is being passed to speak(), whether speak() is being called, and any errors from the synthesis API. Check browser compatibility and voice availability before attempting speech."
+        },
+        {
+          "path": "frontend/src/hooks/useSpeechSynthesis.ts",
+          "operation": "modify",
+          "description": "Add detailed error logging throughout the speak function to capture SpeechSynthesis API failures. Log when voices are loaded, when utterance is created, when speak() is called on window.speechSynthesis, and any error events on the utterance object. Add checks for browser support (typeof window.speechSynthesis !== 'undefined') and voice availability before attempting speech. Include error handlers for utterance.onerror events with specific error type logging. Add a retry mechanism if voices aren't immediately available on page load."
+        }
+      ]
+    },
+    {
+      "id": "REQ-48",
+      "summary": "Verify ResponseDisplay.tsx properly triggers speech synthesis when receiving new responses and add detailed error logging to capture any speech synthesis initialization or playback failures",
+      "acceptanceCriteria": [
+        "Console logs show when speech synthesis is triggered for each response",
+        "Errors related to speech synthesis initialization, voice loading, or playback are captured and logged",
+        "The speak function from useSpeechSynthesis is called with the correct response text",
+        "Browser compatibility issues with speech synthesis are detected and logged"
+      ],
+      "file_operations": [
+        {
+          "path": "frontend/src/components/ResponseDisplay.tsx",
+          "operation": "modify",
+          "description": "Add comprehensive console logging at each step of the speech synthesis flow: when ResponseDisplay mounts, when response prop changes, when useEffect dependencies trigger, before calling speak(), after calling speak(), and when the speaking state changes. Log the full response object structure and the exact text being passed to speak(). Add browser compatibility checks and log warnings if SpeechSynthesis API is unavailable. Include timestamp logging to track timing of speech synthesis triggers relative to response rendering."
+        },
+        {
+          "path": "frontend/src/hooks/useSpeechSynthesis.ts",
+          "operation": "modify",
+          "description": "Enhance error logging to capture and report all potential failure points: check if window.speechSynthesis is defined, log available voices and their properties, capture utterance creation errors, log when speechSynthesis.speak() is called, add onerror handler to utterance that logs detailed error information including error.type and error.message. Add onstart, onend, onpause, and onresume event handlers with logging to track speech playback lifecycle. Log voice selection details including language, pitch, rate, and volume settings."
+        }
+      ]
+    }
+  ]
+}
